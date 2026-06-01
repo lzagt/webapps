@@ -7,3 +7,5 @@ This repository is an experimental space for exploring, prototyping, and validat
 ## Status
 
 This is a early stage demo of the [Web App Manifest](https://w3c.github.io/manifest) spec.
+
+Legacy demo implementations have been moved to the `legacy/` directory and are preserved for reference while the new codebase continues to evolve.
