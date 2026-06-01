@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= userData.title || 'Weekly Planner' %></title>
+    <meta http-equiv="refresh" content="600">
+    <style type="text/css">
+        /* Base reset & typography under 50KB */
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: Georgia, "Times New Roman", serif;
+            margin: 0;
+            padding: 12px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 3px solid #000000;
+            padding: 12px;
+            background-color: #ffffff;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px double #000000;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 13px;
+            font-style: italic;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Jump link for quick navigation on Kindle joystick */
+        .jump-container {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .jump-btn {
+            display: inline-block;
+            border: 1px solid #000000;
+            padding: 4px 10px;
+            font-size: 13px;
+            text-decoration: none;
+            color: #000000;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        /* Day planner cards */
+        .day-card {
+            border: 2px solid #000000;
+            margin-bottom: 15px;
+            background-color: #ffffff;
+        }
+
+        /* Dynamic today highlight */
+        .today-highlight {
+            border: 4px double #000000 !important;
+            box-shadow: none; /* Kindle compatibility - no shadows */
+        }
+
+        .day-header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .today-header {
+            background-color: #000000;
+            text-decoration: underline;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .schedule-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #000000;
+            vertical-align: top;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Time Column */
+        .time-col {
+            width: 25%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-right: 1px solid #000000;
+            background-color: #f2f2f2;
+        }
+
+        /* Activity Checklist Column */
+        .activity-col {
+            width: 75%;
+            font-size: 14px;
+        }
+
+        .activity-item {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Native checkboxes are replaced by clickable text-brackets */
+        .checkbox-link {
+            text-decoration: none;
+            color: #000000;
+            outline: none;
+        }
+
+        .checkbox-symbol {
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 6px;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+
+        .activity-text {
+            vertical-align: middle;
+        }
+
+        /* Footer goals */
+        .footer-notes {
+            margin-top: 20px;
+            border: 2px dashed #000000;
+            padding: 10px;
+            background-color: #ffffff;
+        }
+
+        .footer-notes h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #000000;
+            padding-bottom: 3px;
+        }
+
+        .footer-notes ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        .footer-notes li {
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header">
+            <h1><%= userData.title || 'WEEKLY PLANNER' %></h1>
+            <p><%= userData.subtitle || 'Daily Checklist' %></p>
+        </div>
+
+        <% 
+        let hasToday = false;
+        schedule.forEach(function(day) {
+            if (day.dayName.toLowerCase() === currentDayName.toLowerCase()) {
+                hasToday = true;
+            }
+        });
+        %>
+        <div class="jump-container">
+            <% if (hasToday) { %>
+                <a href="#today" class="jump-btn">JUMP TO TODAY (<%= currentDayName.toUpperCase() %>)</a>
+            <% } %>
+        </div>
+
+        <!-- WEEK SCHEDULE -->
+        <% schedule.forEach(function(day) { %>
+            <% 
+            const isToday = day.dayName.toLowerCase() === currentDayName.toLowerCase();
+            const dayCardClass = isToday ? 'day-card today-highlight' : 'day-card';
+            const dayHeaderClass = isToday ? 'day-header today-header' : 'day-header';
+            const todayAnchor = isToday ? 'id="today"' : `id="${day.id}"`;
+            %>
+            <div class="<%= dayCardClass %>" <%= todayAnchor %>>
+                <div class="<%= dayHeaderClass %>">
+                    <%= day.dayName %> <%= isToday ? ' &mdash; TODAY' : '' %>
+                </div>
+                <table class="schedule-table">
+                    <% 
+                    const periods = ['Morning', 'Afternoon', 'Evening'];
+                    periods.forEach(function(period) {
+                        const periodActs = (day.activities || [])
+                            .filter(a => a.period === period)
+                            .sort((a, b) => (a.order || 0) - (b.order || 0));
+                        
+                        if (periodActs.length > 0) {
+                    %>
+                            <tr>
+                                <td class="time-col"><%= period %></td>
+                                <td class="activity-col">
+                                    <% periodActs.forEach(function(act) { %>
+                                        <% 
+                                        const isCompleted = !!act.completed;
+                                        const checkSymbol = isCompleted ? '[x]' : '[ ]';
+                                        const nextState = !isCompleted;
+                                        const toggleUrl = `/aac/legacy/${userId}/toggle?day=${day.id}&itemId=${encodeURIComponent(act.id)}&completed=${nextState}&tz=${encodeURIComponent(timezone)}`;
+                                        %>
+                                        <div class="activity-item">
+                                            <a href="<%= toggleUrl %>" class="checkbox-link"><span class="checkbox-symbol"><%= checkSymbol %></span></a>
+                                            <span class="activity-text"><%= act.time %> - <%= act.description %></span>
+                                        </div>
+                                    <% }); %>
+                                </td>
+                            </tr>
+                    <% 
+                        }
+                    }); 
+                    %>
+                </table>
+            </div>
+        <% }); %>
+
+        <!-- HABITS & GOALS -->
+        <% if (userData.goals && Array.isArray(userData.goals) && userData.goals.length > 0) { %>
+            <div class="footer-notes">
+                <h2>Weekly Goals &amp; Habits:</h2>
+                <ul>
+                    <% userData.goals.forEach(function(goal) { %>
+                        <li><%= goal %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } %>
+        
+    </div>
+</body>
+</html>
