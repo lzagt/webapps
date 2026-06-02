@@ -2,11 +2,13 @@
 
 Welcome to the home of the Leo's Web Apps project.
 
-# Context & History
+# Repository History
 
 ## Web Application Prototyping Sandbox (Archived)
 
 This repository originated as an experimental sandbox created by the primary authors of the [Web App Manifest](https://w3c.github.io/manifest) specification. It served as the foundational testing ground where we prototyped design patterns, validated technical feasibility, and stress-tested edge cases to prove the specification's viability before it was widely adopted by modern web browsers.
+
+Legacy [demos links](https://lzagt.github.io/webapps)
 
 ## Repository Status
 
