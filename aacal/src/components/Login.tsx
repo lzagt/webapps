@@ -5,7 +5,7 @@ import {
   FacebookAuthProvider, 
   OAuthProvider 
 } from 'firebase/auth';
-import { auth } from '../../../lib/firebase';
+import { auth } from '../lib/firebase';
 
 interface LoginProps {
   onSuccess?: () => void;

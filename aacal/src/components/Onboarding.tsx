@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
-import { db, auth } from '../../../lib/firebase';
+import { db, auth } from '../lib/firebase';
 import { DaySchedule, UserMetadata, Activity } from '../types';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Login } from './Login';
@@ -171,7 +171,7 @@ export const Onboarding: React.FC = () => {
       }
 
       // Success! Redirect parent to editor page for their new kid profile
-      navigate(`/aacal/edit?userId=${kidId}`);
+      navigate(`/edit?userId=${kidId}`);
     } catch (err: any) {
       console.error('Onboarding failed:', err);
       setError(err.message || 'Onboarding setup failed. Please try again.');
@@ -238,7 +238,7 @@ export const Onboarding: React.FC = () => {
                   required
                 />
                 <span className="text-secondary" style={{ fontSize: '11px', display: 'block', marginTop: '4px' }}>
-                  Public view link: /aacal?userId=<strong>{kidId || '...'}</strong>
+                  Public view link: /?userId=<strong>{kidId || '...'}</strong>
                 </span>
               </div>
 
@@ -275,7 +275,7 @@ export const Onboarding: React.FC = () => {
                   type="button"
                   className="btn btn-secondary"
                   style={{ marginTop: '8px', width: '100%', cursor: 'pointer' }}
-                  onClick={() => navigate('/aacal/edit')}
+                  onClick={() => navigate('/edit')}
                 >
                   Cancel
                 </button>

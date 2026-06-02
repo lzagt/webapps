@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { collection, doc, onSnapshot, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { db, auth } from '../../../lib/firebase';
+import { db, auth } from '../lib/firebase';
 import { Achievement, UserMetadata } from '../types';
 import { Login } from './Login';
 
@@ -62,9 +62,11 @@ export const Achievements: React.FC = () => {
     setCurrentPage(1);
   }, [filter]);
 
+  const isParentActive = !!(currentUser && userData && userData.settings?.parentId === currentUser.uid);
+
   const handleApprove = async (id: string) => {
-    // Prevent execution if not logged in
-    if (!auth.currentUser) {
+    // Prevent execution if not authorized parent
+    if (!isParentActive) {
       console.warn("Unauthorized approval attempt.");
       return;
     }
@@ -148,7 +150,7 @@ export const Achievements: React.FC = () => {
           </div>
           <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>No Kid Profile Selected</h2>
           <p className="text-secondary" style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>Please specify a valid kid profile link to view achievements.</p>
-          <Link to="/aacal" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', cursor: 'pointer' }}>
+          <Link to="/" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', cursor: 'pointer' }}>
             Go to Portal Homepage
           </Link>
         </div>
@@ -171,7 +173,7 @@ export const Achievements: React.FC = () => {
       {/* Header section */}
       <div className="aacal-card header-card flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <Link to={`/aacal?userId=${userId}`} className="btn btn-secondary py-1 px-3 flex items-center gap-1" style={{ fontSize: '13px', display: 'flex', alignItems: 'center' }}>
+          <Link to={`/?userId=${userId}`} className="btn btn-secondary py-1 px-3 flex items-center gap-1" style={{ fontSize: '13px', display: 'flex', alignItems: 'center' }}>
             <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
             Back
           </Link>
@@ -201,7 +203,7 @@ export const Achievements: React.FC = () => {
       <div className="aacal-card mb-4 border-accent">
         <div className="flex justify-between items-center mb-3">
           <h2 className="section-title" style={{ fontSize: '16px', margin: 0 }}>Parent Review Portal 🔒</h2>
-          {!currentUser ? (
+          {!isParentActive ? (
             <button className="btn btn-primary py-1 px-3 text-xs" style={{ cursor: 'pointer' }} onClick={() => setShowLogin(true)}>
               Unlock
             </button>
@@ -210,7 +212,7 @@ export const Achievements: React.FC = () => {
           )}
         </div>
 
-        {currentUser ? (
+        {isParentActive ? (
           <div>
             {pendingAchievements.length === 0 ? (
               <p className="text-secondary text-center text-sm py-4">All caught up! No pending achievements to review.</p>
@@ -241,9 +243,11 @@ export const Achievements: React.FC = () => {
           </div>
         ) : (
           <div className="text-center py-4">
-            <p className="text-secondary text-sm mb-3">Unlock review controls to approve pending checklist rewards.</p>
+            <p className="text-secondary text-sm mb-3">
+              {currentUser ? "You are signed in as a different parent. Please sign in as the correct parent." : "Unlock review controls to approve pending checklist rewards."}
+            </p>
             <button className="btn btn-primary py-1.5 px-4 text-sm" style={{ cursor: 'pointer' }} onClick={() => setShowLogin(true)}>
-              Enter Parent Login
+              {currentUser ? "Switch Parent Account" : "Enter Parent Login"}
             </button>
           </div>
         )}

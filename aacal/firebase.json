@@ -41,6 +41,9 @@
     "firestore": {
       "port": 5703
     },
+    "auth": {
+      "port": 5705
+    },
     "hosting": {
       "port": 3000
     },
