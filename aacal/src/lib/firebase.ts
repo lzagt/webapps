@@ -23,5 +23,5 @@ export const auth = getAuth(app);
 
 if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
   connectFirestoreEmulator(db, "127.0.0.1", 5703);
-  connectAuthEmulator(auth, "http://localhost:5709", { disableWarnings: true });
+  connectAuthEmulator(auth, "http://localhost:5705", { disableWarnings: true });
 }

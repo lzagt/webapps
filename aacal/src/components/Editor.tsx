@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { doc, onSnapshot, collection, query, orderBy, updateDoc, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { db, auth } from '../../../lib/firebase';
+import { db, auth } from '../lib/firebase';
 import { DaySchedule, UserMetadata, Activity } from '../types';
 import { PinPrompt } from './PinPrompt';
 import { Login } from './Login';
@@ -55,9 +55,9 @@ export const Editor: React.FC = () => {
 
         if (!userId) {
           if (profiles.length === 0) {
-            navigate('/aacal/onboarding', { replace: true });
+            navigate('/onboarding', { replace: true });
           } else if (profiles.length === 1) {
-            navigate(`/aacal/edit?userId=${profiles[0].id}`, { replace: true });
+            navigate(`/edit?userId=${profiles[0].id}`, { replace: true });
           } else {
             setCheckingProfiles(false);
           }
@@ -327,7 +327,7 @@ export const Editor: React.FC = () => {
             {kidsList.map(kid => (
               <button
                 key={kid.id}
-                onClick={() => navigate(`/aacal/edit?userId=${kid.id}`)}
+                onClick={() => navigate(`/edit?userId=${kid.id}`)}
                 className="glass-panel border-accent-hover"
                 style={{
                   padding: '24px 16px',
@@ -374,7 +374,7 @@ export const Editor: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-            <Link to="/aacal/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
+            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
               <span className="material-symbols-outlined">add_circle</span>
               Add Another Kid Profile
             </Link>
@@ -404,13 +404,36 @@ export const Editor: React.FC = () => {
             The kid profile you are trying to edit <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong> has not been set up in our system yet.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link to="/aacal/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
+            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
               Create Kid Profile
             </Link>
-            <Link to="/aacal" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
+            <Link to="/" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
               Go Back to Main Page
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const isOwner = userData.settings?.parentId === currentUser?.uid;
+  if (!isOwner) {
+    return (
+      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="aacal-card border-accent text-center animate-fade-in" style={{ maxWidth: '480px', padding: '40px 30px', margin: '0 auto' }}>
+          <div className="logo-container" style={{ background: 'var(--delete-gradient)', boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)', marginBottom: '24px', display: 'inline-flex' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: '#ffffff' }}>gavel</span>
+          </div>
+          <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>Access Denied</h2>
+          <p className="text-secondary" style={{ fontSize: '15px', lineHeight: 1.6, marginBottom: '28px', color: 'var(--text-muted)' }}>
+            You do not have permission to edit the profile <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong>.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <Link to="/edit" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+              Go to Your Profiles
             </Link>
           </div>
         </div>
@@ -455,7 +478,7 @@ export const Editor: React.FC = () => {
             <span style={{ fontSize: '13px', fontWeight: 'bold' }}>Editing profile:</span>
             <select
               value={userId}
-              onChange={(e) => navigate(`/aacal/edit?userId=${e.target.value}`)}
+              onChange={(e) => navigate(`/edit?userId=${e.target.value}`)}
               style={{
                 background: 'rgba(0,0,0,0.2)',
                 color: '#fff',
@@ -474,7 +497,7 @@ export const Editor: React.FC = () => {
               ))}
             </select>
             <Link 
-              to="/aacal/onboarding" 
+              to="/onboarding" 
               className="btn-link btn-save" 
               style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', borderRadius: '16px', margin: 0 }}
             >
@@ -487,11 +510,11 @@ export const Editor: React.FC = () => {
 
       <div className="nav-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', gap: '12px' }}>
-          <Link to={`/aacal?userId=${userId}`} className="btn-link">
+          <Link to={`/?userId=${userId}`} className="btn-link">
             <span className="material-symbols-outlined">arrow_back</span>
             Back to Planner Portal
           </Link>
-          <Link to={`/aacal/achievements?userId=${userId}`} className="btn-link">
+          <Link to={`/achievements?userId=${userId}`} className="btn-link">
             <span className="material-symbols-outlined">emoji_events</span>
             View Achievements Wall
           </Link>

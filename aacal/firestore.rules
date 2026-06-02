@@ -1,12 +1,25 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow read/write access to user documents and all subcollections
     match /users/{userId} {
-      allow read, write: if true; 
-      
-      match /{allPaths=**} {
-        allow read, write: if true;
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.settings.parentId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.settings.parentId == request.auth.uid;
+
+      match /schedule/{dayId} {
+        allow read: if true;
+        allow create, delete: if request.auth != null && get(/databases/$(database)/documents/users/$(userId)).data.settings.parentId == request.auth.uid;
+        allow update: if true;
+      }
+
+      match /achievements/{achievementId} {
+        allow read: if true;
+        // Anyone can check a task to create a pending achievement, but only parent can create an approved one
+        allow create: if request.resource.data.status == 'pending' || 
+                      (request.auth != null && get(/databases/$(database)/documents/users/$(userId)).data.settings.parentId == request.auth.uid);
+        // Only the parent can approve/update status of achievements
+        allow update: if request.auth != null && get(/databases/$(database)/documents/users/$(userId)).data.settings.parentId == request.auth.uid;
+        allow delete: if true;
       }
     }
   }

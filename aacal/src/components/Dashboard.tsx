@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { collection, doc, onSnapshot, query, orderBy, updateDoc, setDoc, deleteDoc, serverTimestamp, where, getDocs } from 'firebase/firestore';
 import { onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { db, auth } from '../../../lib/firebase';
+import { db, auth } from '../lib/firebase';
 import { DaySchedule, UserMetadata, Activity, Achievement } from '../types';
 import { PinPrompt } from './PinPrompt';
 import { Login } from './Login';
@@ -57,9 +57,9 @@ export const Dashboard: React.FC = () => {
 
         if (!userId) {
           if (profiles.length === 0) {
-            navigate('/aacal/onboarding', { replace: true });
+            navigate('/onboarding', { replace: true });
           } else if (profiles.length === 1) {
-            navigate(`/aacal?userId=${profiles[0].id}`, { replace: true });
+            navigate(`/?userId=${profiles[0].id}`, { replace: true });
           } else {
             setCheckingProfiles(false);
           }
@@ -80,7 +80,7 @@ export const Dashboard: React.FC = () => {
     if (loading || checkingProfiles) return;
 
     if (!userData && !userId && !currentUser) {
-      navigate('/aacal/onboarding', { replace: true });
+      navigate('/onboarding', { replace: true });
     }
   }, [loading, userData, userId, navigate, checkingProfiles, currentUser]);
 
@@ -327,7 +327,7 @@ export const Dashboard: React.FC = () => {
             {kidsList.map(kid => (
               <button
                 key={kid.id}
-                onClick={() => navigate(`/aacal?userId=${kid.id}`)}
+                onClick={() => navigate(`/?userId=${kid.id}`)}
                 className="glass-panel border-accent-hover"
                 style={{
                   padding: '24px 16px',
@@ -374,7 +374,7 @@ export const Dashboard: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-            <Link to="/aacal/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
+            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
               <span className="material-symbols-outlined">add_circle</span>
               Add Another Kid Profile
             </Link>
@@ -437,11 +437,11 @@ export const Dashboard: React.FC = () => {
             The kid profile link <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong> has not been set up in our system yet.
           </p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link to="/aacal/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
+            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
               Create Kid Profile
             </Link>
-            <Link to="/aacal" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
+            <Link to="/" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
               Go Back to Main Page
             </Link>
@@ -451,6 +451,7 @@ export const Dashboard: React.FC = () => {
     );
   }
 
+  const isParentActive = !!(currentUser && userData && userData.settings?.parentId === currentUser.uid);
   const requiresPin = userData.settings?.pin ? true : false;
   const isAuthorized = !requiresPin || pinVerified;
 
@@ -505,7 +506,7 @@ export const Dashboard: React.FC = () => {
     <div className="app-container">
       <header style={{ position: 'relative' }}>
         <div className="parent-auth-header-controls" style={{ position: 'absolute', top: '16px', right: '16px', display: 'flex', gap: '12px', alignItems: 'center' }}>
-          {currentUser ? (
+          {isParentActive ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span className="badge-lag lag-on-time" style={{ fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>lock_open</span>
@@ -520,14 +521,21 @@ export const Dashboard: React.FC = () => {
               </button>
             </div>
           ) : (
-            <button 
-              onClick={() => setShowLogin(true)} 
-              className="btn btn-secondary" 
-              style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer' }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>lock</span>
-              Parent Login
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {currentUser && (
+                <span className="badge-lag lag-late" style={{ fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                  Wrong Parent
+                </span>
+              )}
+              <button 
+                onClick={() => setShowLogin(true)} 
+                className="btn btn-secondary" 
+                style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer' }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>lock</span>
+                Parent Login
+              </button>
+            </div>
           )}
         </div>
         <div className="compact-header-brand" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
@@ -579,13 +587,13 @@ export const Dashboard: React.FC = () => {
         )}
 
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <Link to={`/aacal/achievements?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
+          <Link to={`/achievements?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
             <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>emoji_events</span>
             Achievements
           </Link>
 
-          {currentUser && (
-            <Link to={`/aacal/edit?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
+          {isParentActive && (
+            <Link to={`/edit?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
               <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>edit</span>
               Edit
             </Link>
