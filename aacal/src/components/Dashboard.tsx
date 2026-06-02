@@ -302,10 +302,10 @@ export const Dashboard: React.FC = () => {
 
   if (checkingProfiles) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="glass-panel border-accent text-center animate-fade-in" style={{ padding: '40px 30px' }}>
-          <div className="spinner" style={{ margin: '0 auto 20px auto', width: '40px', height: '40px' }}></div>
-          <h2 style={{ color: 'var(--text-main)', fontSize: '20px', fontWeight: 'bold' }}>Checking Profiles...</h2>
+      <div className="flex items-center justify-center min-h-[80vh] px-4">
+        <div className="w-full max-w-md p-8 text-center rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="spinner mx-auto mb-6 w-10 h-10"></div>
+          <h2 className="text-xl font-bold text-white tracking-tight">Checking Profiles...</h2>
         </div>
       </div>
     );
@@ -313,75 +313,42 @@ export const Dashboard: React.FC = () => {
 
   if (!userId && kidsList.length > 1) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-        <div className="glass-panel border-accent animate-fade-in" style={{ maxWidth: '600px', width: '100%', padding: '40px 30px', textAlign: 'center' }}>
-          <div className="logo-container" style={{ marginBottom: '24px', display: 'inline-flex' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: 'var(--accent)' }}>family_restroom</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-2xl p-8 md:p-12 text-center rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-violet-600/10 border border-violet-500/25">
+            <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '32px' }}>family_restroom</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>Select a Planner</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '32px' }}>
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-2 font-outfit">Select a Planner</h2>
+          <p className="text-slate-300 mb-8 max-w-md mx-auto">
             Multiple kid profiles are linked to your account. Select one to view:
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {kidsList.map(kid => (
               <button
                 key={kid.id}
                 onClick={() => navigate(`/?userId=${kid.id}`)}
-                className="glass-panel border-accent-hover"
-                style={{
-                  padding: '24px 16px',
-                  cursor: 'pointer',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '12px',
-                  transition: 'transform 0.2s, border-color 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.borderColor = 'var(--accent)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                }}
+                className="flex flex-col items-center gap-4 p-6 rounded-2xl border border-white/5 bg-slate-900/20 hover:bg-slate-900/40 hover:border-violet-500/50 hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center group"
               >
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: 'var(--primary-gradient)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  fontSize: '20px'
-                }}>
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-500/10 group-hover:scale-105 transition-transform">
                   {kid.id.charAt(0).toUpperCase()}
                 </div>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '16px', color: 'var(--text-main)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '200px' }}>{kid.title.replace("'S PLANNER", "")}</h3>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>@{kid.id}</span>
+                <div className="w-full">
+                  <h3 className="text-base font-bold text-white truncate max-w-full">{kid.title.replace("'S PLANNER", "")}</h3>
+                  <span className="text-xs text-slate-400">@{kid.id}</span>
                 </div>
               </button>
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/onboarding" className="nav-link btn-save">
               <span className="material-symbols-outlined">add_circle</span>
               Add Another Kid Profile
             </Link>
             <button 
               onClick={() => signOut(auth)} 
-              className="btn btn-secondary"
-              style={{ padding: '8px 20px', borderRadius: '20px' }}
+              className="nav-link btn-delete"
             >
               Sign Out
             </button>
@@ -391,24 +358,23 @@ export const Dashboard: React.FC = () => {
     );
   }
 
-  if (loading) return <div className="p-8 text-center text-white">Loading Planner...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[80vh] text-slate-300 font-bold">Loading Planner...</div>;
   if (!userData) {
     if (!userId && !currentUser) {
       return (
-        <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-          <div className="glass-panel border-accent text-center animate-fade-in" style={{ maxWidth: '500px', width: '100%', padding: '40px 30px' }}>
-            <div className="logo-container" style={{ marginBottom: '24px', display: 'inline-flex' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '32px', color: 'var(--accent)' }}>child_care</span>
+        <div className="flex items-center justify-center min-h-[80vh] p-6">
+          <div className="w-full max-w-md p-8 md:p-10 text-center rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+            <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-violet-600/10 border border-violet-500/25">
+              <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '32px' }}>child_care</span>
             </div>
-            <h2 className="text-gradient" style={{ fontSize: '28px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>AAC Planner Portal</h2>
-            <p className="text-secondary" style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '32px', lineHeight: 1.6 }}>
+            <h2 className="text-3xl font-extrabold tracking-tight text-white mb-4 font-outfit">AAC Planner Portal</h2>
+            <p className="text-slate-300 leading-relaxed mb-8">
               Welcome to the AAC Planner. Please authenticate as a parent to manage calendars, or use the direct public link provided by your parent to access Kid Mode.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
+            <div className="flex justify-center">
               <button 
                 onClick={() => setShowLogin(true)} 
-                className="btn-link btn-save" 
-                style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px 28px', borderRadius: '30px', fontWeight: 'bold', border: 'none', cursor: 'pointer', margin: 0 }}
+                className="nav-link btn-save"
               >
                 <span className="material-symbols-outlined">lock</span>
                 Parent Portal Login
@@ -427,22 +393,22 @@ export const Dashboard: React.FC = () => {
     }
 
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="aacal-card border-accent text-center animate-fade-in" style={{ maxWidth: '480px', padding: '40px 30px', margin: '0 auto' }}>
-          <div className="logo-container" style={{ background: 'var(--delete-gradient)', boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)', marginBottom: '24px', display: 'inline-flex' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: '#ffffff' }}>person_off</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-md p-8 md:p-10 text-center rounded-3xl border border-red-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-red-600/10 border border-red-500/25 shadow-lg shadow-red-500/10">
+            <span className="material-symbols-outlined text-red-400" style={{ fontSize: '32px' }}>person_off</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>Planner Not Found</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', lineHeight: 1.6, marginBottom: '28px', color: 'var(--text-muted)' }}>
-            The kid profile link <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong> has not been set up in our system yet.
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-4 font-outfit">Planner Not Found</h2>
+          <p className="text-slate-300 leading-relaxed mb-8">
+            The kid profile link <strong className="text-white">"{userId}"</strong> has not been set up in our system yet.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
+          <div className="flex flex-col gap-4">
+            <Link to="/onboarding" className="nav-link btn-save justify-center">
+              <span className="material-symbols-outlined">add_circle</span>
               Create Kid Profile
             </Link>
-            <Link to="/" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+            <Link to="/" className="nav-link justify-center">
+              <span className="material-symbols-outlined">arrow_back</span>
               Go Back to Main Page
             </Link>
           </div>
@@ -502,70 +468,77 @@ export const Dashboard: React.FC = () => {
   const activeDayEarned = focusedDay ? dayCredits(focusedDay) : 0;
   const activeDayPossible = focusedDay ? totalPossibleCredits(focusedDay) : 0;
 
+  const getGridClass = () => {
+    if (viewMode === '1') return "grid grid-cols-1 max-w-2xl mx-auto gap-8 mb-12 animate-fade-in";
+    if (viewMode === '3') return "grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 animate-fade-in";
+    if (viewMode === '5') return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12 animate-fade-in";
+    return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-6 mb-12 animate-fade-in";
+  };
+
   return (
-    <div className="app-container">
-      <header style={{ position: 'relative' }}>
-        <div className="parent-auth-header-controls" style={{ position: 'absolute', top: '16px', right: '16px', display: 'flex', gap: '12px', alignItems: 'center' }}>
+    <div className="app-container px-4 py-8">
+      {/* Top Status & Brand Header Row */}
+      <header className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between w-full mb-10">
+        <div className="flex items-center gap-4">
+          <div className="logo-container flex-shrink-0">
+            <span className="material-symbols-outlined">calendar_today</span>
+          </div>
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight font-outfit">{userData.title || 'WEEKLY PLANNER'}</h1>
+            <p className="text-slate-400 text-sm font-medium">{userData.subtitle || 'Daily Checklist'}</p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-4">
+          {activeDayPossible > 0 && (
+            <div className="credits-scorecard shadow-lg">
+              <span className="material-symbols-outlined star-icon">grade</span>
+              <span className="credits-text text-sm">
+                <strong>{focusedDay?.dayName}</strong>: <strong>{activeDayEarned}</strong> / {activeDayPossible} Credits
+              </span>
+            </div>
+          )}
+
           {isParentActive ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="badge-lag lag-on-time" style={{ fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>lock_open</span>
-                Parent Active
+            <div className="flex items-center gap-3">
+              <span className="badge-lag lag-on-time flex items-center gap-1 text-[11px]">
+                <span className="material-symbols-outlined text-[14px]">lock_open</span>
+                Parent Mode
               </span>
               <button 
                 onClick={() => signOut(auth)} 
-                className="btn btn-secondary" 
-                style={{ padding: '4px 10px', fontSize: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer' }}
+                className="nav-link py-2 px-4 text-xs font-bold hover:bg-red-500/20 hover:text-red-300"
               >
                 Logout
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="flex items-center gap-3">
               {currentUser && (
-                <span className="badge-lag lag-late" style={{ fontSize: '11px', display: 'inline-flex', alignItems: 'center', gap: '4px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                <span className="badge-lag lag-late flex items-center gap-1 text-[11px]">
                   Wrong Parent
                 </span>
               )}
               <button 
                 onClick={() => setShowLogin(true)} 
-                className="btn btn-secondary" 
-                style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer' }}
+                className="nav-link py-2 px-4 text-xs font-bold flex items-center gap-1.5"
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>lock</span>
+                <span className="material-symbols-outlined text-[14px]">lock</span>
                 Parent Login
               </button>
             </div>
           )}
         </div>
-        <div className="compact-header-brand" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
-          <div className="logo-container" style={{ margin: 0 }}>
-            <span className="material-symbols-outlined">calendar_today</span>
-          </div>
-          <div style={{ textAlign: 'left' }}>
-            <h1 style={{ fontSize: '28px', margin: 0, lineHeight: 1.2 }}>{userData.title || 'WEEKLY PLANNER'}</h1>
-            <p style={{ margin: 0, fontSize: '14px', opacity: 0.8 }}>{userData.subtitle || 'Daily Checklist'}</p>
-          </div>
-        </div>
-
-        {activeDayPossible > 0 && (
-          <div className="credits-scorecard">
-            <span className="material-symbols-outlined star-icon">grade</span>
-            <span className="credits-text">
-              <strong>{focusedDay?.dayName}</strong> Reward: <strong>{activeDayEarned}</strong> / {activeDayPossible} Credits
-            </span>
-          </div>
-        )}
       </header>
 
-      <div className="nav-bar compact-nav-row" style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '24px' }}>
-        <div className="view-mode-selector" style={{ margin: 0 }}>
+      {/* Navigation & Controls Bar */}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between w-full mb-10 pb-6 border-b border-white/5">
+        <div className="view-mode-selector">
           {(['1', '3', '5', '7'] as const).map((mode) => (
             <button
               key={mode}
               className={`selector-btn ${viewMode === mode ? 'active' : ''}`}
               onClick={() => setViewMode(mode)}
-              style={{ fontSize: '13px', padding: '6px 12px' }}
             >
               {mode === '1' ? '1 Day' : `${mode} Days`}
             </button>
@@ -573,11 +546,11 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {viewMode !== '7' && schedule.length > 0 && (
-          <div className="day-navigator" style={{ margin: 0 }}>
+          <div className="day-navigator">
             <button className="nav-arrow-btn" onClick={goToPrevDay}>
               <span className="material-symbols-outlined">chevron_left</span>
             </button>
-            <span className="focused-day-display" style={{ minWidth: '100px', textAlign: 'center', fontWeight: 'bold' }}>
+            <span className="focused-day-display font-semibold">
               {focusedDay?.dayName || 'Select Day'}
             </span>
             <button className="nav-arrow-btn" onClick={goToNextDay}>
@@ -586,75 +559,85 @@ export const Dashboard: React.FC = () => {
           </div>
         )}
 
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-          <Link to={`/achievements?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>emoji_events</span>
+        <div className="flex gap-3">
+          <Link to={`/achievements?userId=${userId}`} className="nav-link py-2.5 px-5 text-sm font-semibold">
+            <span className="material-symbols-outlined">emoji_events</span>
             Achievements
           </Link>
 
           {isParentActive && (
-            <Link to={`/edit?userId=${userId}`} className="nav-link" style={{ margin: 0, padding: '8px 16px', borderRadius: '20px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>edit</span>
-              Edit
+            <Link to={`/edit?userId=${userId}`} className="nav-link btn-save py-2.5 px-5 text-sm font-semibold">
+              <span className="material-symbols-outlined">edit</span>
+              Edit Planner
             </Link>
           )}
         </div>
       </div>
 
-
-      <main className={`planner-grid grid-${viewMode}`}>
+      {/* Main Days Grid */}
+      <main className={getGridClass()}>
         {visibleDays.map((day) => {
           const isToday = day.dayName.toLowerCase() === currentDayName.toLowerCase();
           const earned = dayCredits(day);
           const possible = totalPossibleCredits(day);
 
           return (
-            <div key={day.id} className={`day-card ${isToday ? 'today-highlight' : ''}`} id={isToday ? 'today' : day.id}>
-              <div className="day-header">
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <span className="day-name">{day.dayName}</span>
-                  {possible > 0 && (
-                    <span className="day-credits-badge">
-                      ⭐ {earned}/{possible} Credits
-                    </span>
-                  )}
-                </div>
-                {isToday && <span className="today-badge">Today</span>}
-              </div>
-
-              {['Morning', 'Afternoon', 'Evening'].map((period) => {
-                const periodActs = sortActivities(day.activities || [])
-                  .filter(a => getPeriod(a) === period);
-                
-                if (periodActs.length === 0) return null;
-
-                return (
-                  <div key={period} className="period-section">
-                    <div className={`period-title period-${period}`}>{period}</div>
-                    <div className="activity-list">
-                      {periodActs.map((act) => (
-                        <div key={act.id} className={`activity-item ${act.completed ? 'completed' : ''}`}>
-                          <button 
-                            className="checkbox-btn"
-                            onClick={() => toggleActivity(day.id, act.id, act.completed)}
-                          >
-                            <span className="material-symbols-outlined">check</span>
-                          </button>
-                          <div className="activity-content">
-                            <div className="activity-main-line">
-                              <span className="activity-time">{getDisplayTime(act)}</span>
-                              {act.credits ? (
-                                <span className="activity-credit-tag">⭐ +{act.credits}</span>
-                              ) : null}
-                            </div>
-                            <span className="activity-text">{getTaskTitle(act.taskId)}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+            <div 
+              key={day.id} 
+              className={`day-card flex flex-col justify-between ${isToday ? 'today-highlight ring-2 ring-violet-500/30' : 'border border-white/5'}`} 
+              id={isToday ? 'today' : day.id}
+            >
+              <div>
+                <div className="day-header flex justify-between items-start mb-6 pb-4 border-b border-white/5">
+                  <div className="flex flex-col gap-1">
+                    <span className="day-name text-2xl font-extrabold text-white tracking-tight font-outfit">{day.dayName}</span>
+                    {possible > 0 && (
+                      <span className="day-credits-badge self-start text-[11px] font-bold">
+                        ⭐ {earned}/{possible} Credits
+                      </span>
+                    )}
                   </div>
-                );
-              })}
+                  {isToday && <span className="today-badge">Today</span>}
+                </div>
+
+                <div className="flex flex-col gap-6">
+                  {['Morning', 'Afternoon', 'Evening'].map((period) => {
+                    const periodActs = sortActivities(day.activities || [])
+                      .filter(a => getPeriod(a) === period);
+                    
+                    if (periodActs.length === 0) return null;
+
+                    return (
+                      <div key={period} className="flex flex-col gap-3">
+                        <div className={`period-title period-${period} self-start text-[10.5px] font-extrabold tracking-wider`}>
+                          {period}
+                        </div>
+                        <div className="activity-list">
+                          {periodActs.map((act) => (
+                            <div key={act.id} className={`activity-item ${act.completed ? 'completed' : ''}`}>
+                              <button 
+                                className="checkbox-btn"
+                                onClick={() => toggleActivity(day.id, act.id, act.completed)}
+                              >
+                                <span className="material-symbols-outlined">check</span>
+                              </button>
+                              <div className="activity-content">
+                                <div className="activity-main-line flex items-center justify-between w-full">
+                                  <span className="activity-time text-slate-400 font-bold text-[11px]">{getDisplayTime(act)}</span>
+                                  {act.credits ? (
+                                    <span className="activity-credit-tag text-[9px] font-bold">⭐ +{act.credits}</span>
+                                  ) : null}
+                                </div>
+                                <span className="activity-text text-sm font-semibold text-white">{getTaskTitle(act.taskId)}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           );
         })}
@@ -684,42 +667,39 @@ export const Dashboard: React.FC = () => {
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
           }}
         >
-          <span className="material-symbols-outlined" style={{ fontSize: '32px', animation: 'pulse 2s infinite' }}>track_changes</span>
+          <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>track_changes</span>
         </button>
       )}
 
       {showGoals && userData.goals && userData.goals.length > 0 && (
         <div className="login-modal-overlay" onClick={() => setShowGoals(false)}>
           <div 
-            className="glass-panel goals-floating-card border-accent animate-fade-in" 
+            className="glass-panel w-full max-w-md p-6 rounded-3xl border border-violet-500/20 bg-slate-900/90 backdrop-blur-xl shadow-2xl animate-fade-in" 
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '400px', width: '90%', padding: '24px', borderRadius: '24px', textAlign: 'left' }}
           >
-            <div className="flex justify-between items-center mb-4" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '12px', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="material-symbols-outlined text-gradient" style={{ fontSize: '24px' }}>track_changes</span>
-                <h3 className="text-gradient" style={{ margin: 0, fontSize: '18px', fontWeight: 800 }}>Weekly Goals &amp; Habits</h3>
+            <div className="flex justify-between items-center pb-4 mb-4 border-b border-white/5">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '24px' }}>track_changes</span>
+                <h3 className="text-xl font-extrabold text-white font-outfit">Weekly Goals &amp; Habits</h3>
               </div>
               <button 
                 onClick={() => setShowGoals(false)} 
-                className="btn btn-secondary" 
-                style={{ padding: '6px', minWidth: 'auto', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer' }}
+                className="btn btn-secondary p-1.5 min-w-0 rounded-full border border-white/10 hover:bg-white/5 cursor-pointer flex items-center justify-center"
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>close</span>
+                <span className="material-symbols-outlined text-slate-400" style={{ fontSize: '18px' }}>close</span>
               </button>
             </div>
-            <div className="goals-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px', textAlign: 'left' }}>
+            <div className="flex flex-col gap-3">
               {userData.goals.map((goal, i) => (
-                <div key={i} className="goal-item" style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '14px', background: 'rgba(255,255,255,0.03)', padding: '10px 14px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.02)' }}>
-                  <span className="material-symbols-outlined text-gradient" style={{ fontSize: '18px' }}>task_alt</span>
-                  <span className="goal-text" style={{ color: 'var(--text-main)' }}>{goal}</span>
+                <div key={i} className="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-slate-950/40">
+                  <span className="material-symbols-outlined text-emerald-400" style={{ fontSize: '20px' }}>task_alt</span>
+                  <span className="text-sm font-medium text-slate-200">{goal}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
       )}
-
 
       {showLogin && (
         <Login 
