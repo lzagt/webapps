@@ -193,73 +193,69 @@ export const Onboarding: React.FC = () => {
   }
 
   return (
-    <div className="login-modal-overlay">
-      <div className="glass-panel login-card border-accent animate-fade-in" style={{ maxWidth: '450px' }}>
-        <div className="login-header">
-          <div className="icon-badge">
-            <span className="material-symbols-outlined text-gradient">kids_star</span>
+    <div className="flex items-center justify-center min-h-[90vh] p-6">
+      <div className="w-full max-w-xl p-8 md:p-10 rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in mx-4">
+        <div className="mb-8 text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-violet-600/10 border border-violet-500/25">
+            <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '28px' }}>kids_star</span>
           </div>
-          <h2 className="text-gradient">Planner Setup</h2>
-          <p>Configure a personalized daily calendar planner checklist for your kid.</p>
+          <h2 className="text-3xl font-extrabold text-white mt-4 mb-2 font-outfit">Planner Setup</h2>
+          <p className="text-slate-400 text-sm leading-relaxed">Configure a personalized daily calendar planner checklist for your kid.</p>
         </div>
 
         {error && (
-          <div className="alert alert-danger" style={{ margin: '12px 0', fontSize: '13px' }}>
-            <span className="material-symbols-outlined" style={{ marginRight: '6px', fontSize: '16px' }}>error</span>
-            {error}
+          <div className="flex items-center gap-2 p-3.5 mb-6 text-sm font-semibold text-red-200 bg-red-500/10 border border-red-500/25 rounded-xl">
+            <span className="material-symbols-outlined flex-shrink-0 text-red-400" style={{ fontSize: '18px' }}>error</span>
+            <span>{error}</span>
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
           {step === 1 && (
-            <div className="flex flex-col gap-4 text-left">
-              <div>
-                <label className="text-sm text-secondary" style={{ display: 'block', marginBottom: '6px' }}>Child's Name</label>
+            <div className="flex flex-col gap-5 text-left">
+              <div className="form-group">
+                <label>Child's Name</label>
                 <input 
                   type="text" 
-                  className="input" 
+                  className="input-field" 
                   value={kidName} 
                   placeholder="e.g. Alecia"
                   onChange={(e) => handleNameChange(e.target.value)} 
-                  style={{ width: '100%', boxSizing: 'border-box' }}
                   required
                 />
               </div>
 
-              <div>
-                <label className="text-sm text-secondary" style={{ display: 'block', marginBottom: '6px' }}>Kid Username / URL Slug</label>
+              <div className="form-group">
+                <label>Kid Username / URL Slug</label>
                 <input 
                   type="text" 
-                  className="input" 
+                  className="input-field" 
                   value={kidId} 
                   placeholder="e.g. alecia"
                   onChange={(e) => setKidId(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, ''))} 
-                  style={{ width: '100%', boxSizing: 'border-box' }}
                   required
                 />
-                <span className="text-secondary" style={{ fontSize: '11px', display: 'block', marginTop: '4px' }}>
-                  Public view link: /?userId=<strong>{kidId || '...'}</strong>
+                <span className="text-xs text-slate-400 mt-2 block">
+                  Public view link: /?userId=<strong className="text-violet-400">{kidId || '...'}</strong>
                 </span>
               </div>
 
-              <div>
-                <label className="text-sm text-secondary" style={{ display: 'block', marginBottom: '6px' }}>Kid Mode Access PIN (4 digits)</label>
+              <div className="form-group">
+                <label>Kid Mode Access PIN (4 digits)</label>
                 <input 
                   type="text" 
-                  className="input" 
+                  className="input-field" 
                   maxLength={4}
                   value={pin} 
                   placeholder="e.g. 1234"
                   onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))} 
-                  style={{ width: '100%', boxSizing: 'border-box' }}
                   required
                 />
               </div>
 
               <button 
                 type="button" 
-                className="btn btn-success" 
-                style={{ marginTop: '12px', width: '100%', cursor: 'pointer' }}
+                className="btn-success w-full mt-4 justify-center py-3.5 font-bold cursor-pointer flex items-center gap-2"
                 onClick={() => {
                   if (kidName && kidId && pin.length === 4) {
                     setStep(2);
@@ -268,13 +264,14 @@ export const Onboarding: React.FC = () => {
                   }
                 }}
               >
-                Configure Timetable →
+                Configure Timetable
+                <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </button>
+              
               {hasExistingKids && (
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  style={{ marginTop: '8px', width: '100%', cursor: 'pointer' }}
+                  className="nav-link w-full justify-center py-2.5 font-bold cursor-pointer"
                   onClick={() => navigate('/edit')}
                 >
                   Cancel
@@ -284,37 +281,39 @@ export const Onboarding: React.FC = () => {
           )}
 
           {step === 2 && (
-            <div className="flex flex-col gap-4 text-left">
-              <label className="text-sm font-bold text-gradient" style={{ display: 'block' }}>Setup Daily Timetable Routines</label>
-              <div style={{ maxHeight: '200px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '4px' }}>
+            <div className="flex flex-col gap-5 text-left">
+              <label className="text-sm font-bold text-slate-300 uppercase tracking-wider">Setup Daily Timetable Routines</label>
+              <div className="max-h-[320px] overflow-y-auto pr-1 flex flex-col gap-3 scrollbar-thin">
                 {DEFAULT_TASKS.map(t => (
-                  <label key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '13px', background: 'rgba(255,255,255,0.03)', padding: '8px 12px', borderRadius: '8px', cursor: 'pointer' }}>
+                  <label 
+                    key={t.id} 
+                    className="flex items-center gap-4 p-4 rounded-2xl bg-slate-950/40 border border-white/5 cursor-pointer hover:bg-slate-950/60 hover:border-violet-500/30 transition-all select-none"
+                  >
                     <input 
                       type="checkbox" 
                       checked={selectedTasks.includes(t.id)} 
                       onChange={() => handleToggleTask(t.id)}
+                      className="w-5 h-5 rounded border-white/20 bg-slate-950 accent-violet-600 text-white cursor-pointer"
                     />
-                    <div>
-                      <span style={{ display: 'block', fontWeight: 'bold' }}>{t.title}</span>
-                      <span className="text-secondary" style={{ fontSize: '11px' }}>⏰ {t.time} (+{t.credits} Cr)</span>
+                    <div className="flex-1">
+                      <span className="block font-bold text-sm text-white">{t.title}</span>
+                      <span className="text-slate-400 text-xs font-medium">⏰ {t.time} (+{t.credits} Cr)</span>
                     </div>
                   </label>
                 ))}
               </div>
 
-              <div style={{ display: 'flex', gap: '12px', marginTop: '12px' }}>
+              <div className="flex gap-4 mt-6">
                 <button 
                   type="button" 
-                  className="btn btn-secondary" 
-                  style={{ flex: 1, cursor: 'pointer' }}
+                  className="nav-link flex-1 justify-center py-3 font-bold cursor-pointer"
                   onClick={() => setStep(1)}
                 >
                   Back
                 </button>
                 <button 
                   type="submit" 
-                  className="btn btn-success" 
-                  style={{ flex: 2, cursor: 'pointer' }}
+                  className="btn-success flex-[2] justify-center py-3 font-bold cursor-pointer"
                   disabled={submitting}
                 >
                   {submitting ? 'Creating Profile...' : 'Complete & Launch 🚀'}

@@ -43,25 +43,25 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onCancel }) => {
 
   return (
     <div className="login-modal-overlay">
-      <div className="glass-panel login-card border-accent animate-fade-in">
-        <div className="login-header">
-          <div className="icon-badge">
-            <span className="material-symbols-outlined text-gradient">shield_person</span>
+      <div className="w-full max-w-md p-8 md:p-10 text-center rounded-3xl border border-violet-500/20 bg-slate-900/90 backdrop-blur-xl shadow-2xl animate-fade-in mx-4">
+        <div className="mb-8">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-violet-600/10 border border-violet-500/25">
+            <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '28px' }}>shield_person</span>
           </div>
-          <h2 className="text-gradient">Parent Portal Access</h2>
-          <p>Please authenticate to access calendar configuration and settings.</p>
+          <h2 className="text-2xl font-extrabold text-white mt-4 mb-2 font-outfit">Parent Portal Access</h2>
+          <p className="text-slate-400 text-sm leading-relaxed">Please authenticate to access calendar configuration and settings.</p>
         </div>
 
         {error && (
-          <div className="alert alert-danger" style={{ margin: '12px 0', fontSize: '13px' }}>
-            <span className="material-symbols-outlined" style={{ marginRight: '6px', fontSize: '16px' }}>error</span>
-            {error}
+          <div className="flex items-center gap-2 p-3.5 mb-6 text-sm font-semibold text-red-200 bg-red-500/10 border border-red-500/25 rounded-xl text-left">
+            <span className="material-symbols-outlined flex-shrink-0 text-red-400" style={{ fontSize: '18px' }}>error</span>
+            <span>{error}</span>
           </div>
         )}
 
-        <div className="login-actions">
+        <div className="flex flex-col gap-3">
           <button 
-            className="btn btn-login btn-google" 
+            className="btn-login btn-google justify-center py-3.5" 
             disabled={loading !== null}
             onClick={() => handleSignIn('google')}
           >
@@ -77,11 +77,11 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onCancel }) => {
                 </svg>
               )}
             </span>
-            <span>Sign in with Google</span>
+            <span className="font-bold">Sign in with Google</span>
           </button>
 
           <button 
-            className="btn btn-login btn-facebook" 
+            className="btn-login btn-facebook justify-center py-3.5" 
             disabled={loading !== null}
             onClick={() => handleSignIn('facebook')}
           >
@@ -94,11 +94,11 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onCancel }) => {
                 </svg>
               )}
             </span>
-            <span>Sign in with Facebook</span>
+            <span className="font-bold">Sign in with Facebook</span>
           </button>
 
           <button 
-            className="btn btn-login btn-microsoft" 
+            className="btn-login btn-microsoft justify-center py-3.5" 
             disabled={loading !== null}
             onClick={() => handleSignIn('microsoft')}
           >
@@ -114,14 +114,13 @@ export const Login: React.FC<LoginProps> = ({ onSuccess, onCancel }) => {
                 </svg>
               )}
             </span>
-            <span>Sign in with Microsoft</span>
+            <span className="font-bold">Sign in with Microsoft</span>
           </button>
         </div>
 
         {onCancel && (
           <button 
-            className="btn btn-secondary" 
-            style={{ marginTop: '16px', width: '100%' }}
+            className="nav-link w-full mt-6 justify-center py-3" 
             disabled={loading !== null}
             onClick={onCancel}
           >

@@ -1,49 +1,53 @@
+@import "tailwindcss";
+
 /* Scoped Styles for AACal Module */
 
 .aacal-theme {
-  --bg-gradient: linear-gradient(135deg, #090d16 0%, #0f172a 40%, #1e1b4b 100%);
+  /* Color Palette - Overhauled to Deep Indigo-Slate for high contrast and modern editorial look */
+  --bg-gradient: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
   --card-bg: rgba(30, 41, 59, 0.45);
-  --card-bg-hover: rgba(30, 41, 59, 0.6);
-  --card-border: rgba(255, 255, 255, 0.05);
-  --card-border-hover: rgba(255, 255, 255, 0.1);
+  --card-bg-hover: rgba(30, 41, 59, 0.60);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border-hover: rgba(255, 255, 255, 0.15);
   
   --accent-primary: #8b5cf6;
   --accent-secondary: #ec4899;
   --accent-gradient: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #6d28d9 100%);
   --delete-gradient: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
-  --accent-glow: rgba(139, 92, 246, 0.25);
+  --accent-glow: rgba(139, 92, 246, 0.3);
   
   --today-gradient: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
-  --today-bg: rgba(49, 46, 129, 0.4);
-  --today-glow: rgba(167, 139, 250, 0.35);
+  --today-bg: rgba(49, 46, 129, 0.45);
+  --today-glow: rgba(167, 139, 250, 0.4);
 
   --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  --text-muted: #cbd5e1; /* Increased from #94a3b8 for WCAG AA readability compliance */
+  --text-secondary: #94a3b8;
   --text-success: #34d399;
   
-  --checkbox-bg: rgba(15, 23, 42, 0.6);
-  --checkbox-border: rgba(255, 255, 255, 0.15);
+  --checkbox-bg: rgba(15, 23, 42, 0.7);
+  --checkbox-border: rgba(255, 255, 255, 0.25);
   --checkbox-checked-bg: #8b5cf6;
   --checkbox-checked-border: #8b5cf6;
   
-  --period-bg-morning: rgba(251, 191, 36, 0.1);
-  --period-text-morning: #f59e0b;
-  --period-bg-afternoon: rgba(56, 189, 248, 0.1);
-  --period-text-afternoon: #38bdf8;
-  --period-bg-evening: rgba(129, 140, 248, 0.1);
-  --period-text-evening: #818cf8;
+  --period-bg-morning: rgba(245, 158, 11, 0.12);
+  --period-text-morning: #fbbf24; /* Amber 400 for contrast legibility */
+  --period-bg-afternoon: rgba(56, 189, 248, 0.12);
+  --period-text-afternoon: #38bdf8; /* Sky 400 */
+  --period-bg-evening: rgba(129, 140, 248, 0.12);
+  --period-text-evening: #a5b4fc; /* Indigo 300 */
 
-  --input-bg: rgba(15, 23, 42, 0.6);
-  --input-border: rgba(255, 255, 255, 0.1);
+  --input-bg: rgba(15, 23, 42, 0.7);
+  --input-border: rgba(255, 255, 255, 0.15);
   --input-focus-border: #8b5cf6;
 
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Lexend', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--bg-gradient);
   color: var(--text-main);
-  min-height: 100vh;
-  padding: 40px 20px;
+  min-height: 100dvh;
+  padding: 48px 24px;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Ambient dynamic glows */
@@ -62,7 +66,7 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(140px);
-  opacity: 0.12;
+  opacity: 0.15;
 }
 
 .aacal-theme .orb-1 {
@@ -88,10 +92,10 @@
   z-index: 1;
 }
 
-/* Header */
+/* Header styling */
 .aacal-theme header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
   animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -99,25 +103,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 16px;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
   background: var(--accent-gradient);
-  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
-  margin-bottom: 16px;
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.35);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.aacal-theme .logo-container:hover {
+  transform: rotate(6deg) scale(1.05);
 }
 
 .aacal-theme .logo-container .material-symbols-outlined {
-  font-size: 32px;
+  font-size: 34px;
   color: #ffffff;
 }
 
 .aacal-theme h1 {
   font-family: 'Outfit', sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 800;
-  letter-spacing: -1px;
-  margin-bottom: 8px;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
   background: linear-gradient(to right, #ffffff, #cbd5e1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -127,25 +136,27 @@
   font-size: 16px;
   color: var(--text-muted);
   font-weight: 400;
+  max-width: 60ch;
+  margin: 0 auto;
 }
 
-/* Navigation */
+/* Navigation & Custom Pill Buttons */
 .aacal-theme .nav-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+  gap: 16px;
+  margin-bottom: 48px;
 }
 
 .aacal-theme .nav-link, .aacal-theme .btn-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 12px 26px;
   background: rgba(30, 41, 59, 0.5);
   border: 1px solid var(--card-border);
-  border-radius: 30px;
+  border-radius: 9999px;
   color: var(--text-main);
   font-size: 14px;
   font-weight: 600;
@@ -154,13 +165,18 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .aacal-theme .nav-link:hover, .aacal-theme .btn-link:hover {
   background: var(--accent-gradient);
   border-color: transparent;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
   transform: translateY(-2px);
+}
+
+.aacal-theme .nav-link:active, .aacal-theme .btn-link:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .aacal-theme .btn-link.btn-save {
@@ -169,43 +185,43 @@
 }
 
 .aacal-theme .btn-link.btn-delete {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
   color: #f87171;
 }
 
 .aacal-theme .btn-link.btn-delete:hover {
   background: var(--delete-gradient);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
 }
 
 .aacal-theme .nav-link .material-symbols-outlined, .aacal-theme .btn-link .material-symbols-outlined {
-  font-size: 18px;
+  font-size: 20px;
 }
 
-/* Form Fields Styling */
+/* Form Fields Styling (Expanded & Spaced) */
 .aacal-theme .form-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .aacal-theme .form-group label {
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
   color: var(--text-muted);
 }
 
 .aacal-theme .input-field, .aacal-theme .textarea-field, .aacal-theme .select-field {
   width: 100%;
-  padding: 12px 16px;
+  padding: 14px 18px;
   background: var(--input-bg);
   border: 1px solid var(--input-border);
-  border-radius: 12px;
+  border-radius: 14px;
   color: var(--text-main);
   font-family: inherit;
   font-size: 14px;
@@ -215,8 +231,8 @@
 
 .aacal-theme .input-field:focus, .aacal-theme .textarea-field:focus, .aacal-theme .select-field:focus {
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 10px var(--accent-glow);
-  background: rgba(15, 23, 42, 0.8);
+  box-shadow: 0 0 12px var(--accent-glow);
+  background: rgba(15, 23, 42, 0.85);
 }
 
 .aacal-theme .select-field option {
@@ -224,15 +240,15 @@
   color: var(--text-main);
 }
 
-/* Metadata Panel styling */
+/* Metadata Panel styling (Settings) */
 .aacal-theme .meta-panel {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
   border-radius: 24px;
-  padding: 30px;
-  margin-bottom: 40px;
+  padding: 32px;
+  margin-bottom: 48px;
   animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -242,7 +258,7 @@
   gap: 12px;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .aacal-theme .meta-panel-header h2 {
@@ -260,7 +276,7 @@
 .aacal-theme .grid-2col {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 24px;
 }
 
 @media (min-width: 768px) {
@@ -273,8 +289,8 @@
 .aacal-theme .planner-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  margin-bottom: 40px;
+  gap: 28px;
+  margin-bottom: 48px;
   align-items: start;
 }
 
@@ -290,31 +306,32 @@
   }
 }
 
-/* Day Card styling */
+/* Day Card Overhaul (Spacious & Premium Gloss) */
 .aacal-theme .day-card {
   background: var(--card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
   border-radius: 24px;
-  padding: 24px;
+  padding: 28px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .aacal-theme .day-card:hover {
   transform: translateY(-4px) scale(1.01);
   background: var(--card-bg-hover);
   border-color: var(--card-border-hover);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 /* Special Highlight for Today */
 .aacal-theme .today-highlight {
   background: var(--today-bg);
   border: 1.5px solid transparent;
-  box-shadow: 0 0 30px var(--today-glow);
+  box-shadow: 0 0 35px var(--today-glow);
 }
 
 .aacal-theme .today-highlight::before {
@@ -331,14 +348,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .aacal-theme .day-name {
   font-family: 'Outfit', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #ffffff;
 }
@@ -346,19 +363,19 @@
 .aacal-theme .today-badge {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 4px 12px;
   background: var(--today-gradient);
   border-radius: 20px;
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   color: #ffffff;
   text-transform: uppercase;
 }
 
 /* Period Sections inside Cards */
 .aacal-theme .period-section {
-  margin-bottom: 18px;
+  margin-bottom: 24px;
 }
 
 .aacal-theme .period-section:last-child {
@@ -368,87 +385,94 @@
 .aacal-theme .period-title {
   font-family: 'Outfit', sans-serif;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  padding: 3px 8px;
-  border-radius: 6px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 8px;
   display: inline-block;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .aacal-theme .period-Morning {
   background: var(--period-bg-morning);
   color: var(--period-text-morning);
+  border: 1px solid rgba(251, 191, 36, 0.2);
 }
 
 .aacal-theme .period-Afternoon {
   background: var(--period-bg-afternoon);
   color: var(--period-text-afternoon);
+  border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .aacal-theme .period-Evening {
   background: var(--period-bg-evening);
   color: var(--period-text-evening);
+  border: 1px solid rgba(129, 140, 248, 0.2);
 }
 
-/* Activity Items list */
+/* Activity Items list & Spacious Checklists */
 .aacal-theme .activity-list, .aacal-theme .activity-editor-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .aacal-theme .activity-item, .aacal-theme .activity-edit-card {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 10px 12px;
-  background: rgba(15, 23, 42, 0.25);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  transition: all 0.2s ease;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aacal-theme .activity-item:hover, .aacal-theme .activity-edit-card:hover {
-  background: rgba(15, 23, 42, 0.4);
-  border-color: rgba(255, 255, 255, 0.05);
-  transform: translateX(2px);
+  background: rgba(15, 23, 42, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
 }
 
-/* Custom Checkbox Link Button */
+/* Checkbox UX Overhaul - Optimized for Kids and High contrast */
 .aacal-theme .checkbox-btn {
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  border: 1.5px solid var(--checkbox-border);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  border: 2px solid var(--checkbox-border);
   background: var(--checkbox-bg);
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-top: 2px;
 }
 
 .aacal-theme .checkbox-btn:hover {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 8px var(--accent-glow);
+  box-shadow: 0 0 10px var(--accent-glow);
+  transform: scale(1.05);
+}
+
+.aacal-theme .checkbox-btn:active {
+  transform: scale(0.95);
 }
 
 .aacal-theme .checkbox-btn .material-symbols-outlined {
-  font-size: 16px;
+  font-size: 22px;
   color: transparent;
-  font-weight: bold;
+  font-weight: 800;
   transition: color 0.2s ease;
 }
 
 .aacal-theme .activity-item.completed .checkbox-btn {
   background: var(--checkbox-checked-bg);
   border-color: var(--checkbox-checked-border);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.5);
 }
 
 .aacal-theme .activity-item.completed .checkbox-btn .material-symbols-outlined {
@@ -458,62 +482,63 @@
 .aacal-theme .activity-content {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
+  flex-grow: 1;
 }
 
 .aacal-theme .activity-time {
   font-size: 11px;
   font-weight: 700;
   color: var(--text-muted);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.03em;
 }
 
 .aacal-theme .activity-text {
-  font-size: 13.5px;
-  font-weight: 500;
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--text-main);
   transition: all 0.2s ease;
 }
 
 .aacal-theme .activity-item.completed .activity-text {
   text-decoration: line-through;
-  color: var(--text-muted);
-  opacity: 0.7;
+  color: var(--text-secondary);
+  opacity: 0.65;
 }
 
 /* Goals / Habits Dashboard Card */
 .aacal-theme .goals-wrapper {
-  margin-top: 32px;
+  margin-top: 40px;
   animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .aacal-theme .goals-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.85) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  padding: 30px;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 .aacal-theme .goals-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .aacal-theme .goals-header .material-symbols-outlined {
   color: var(--accent-secondary);
-  font-size: 28px;
+  font-size: 30px;
 }
 
 .aacal-theme .goals-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #ffffff;
 }
@@ -521,7 +546,7 @@
 .aacal-theme .goals-list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 @media (min-width: 768px) {
@@ -532,31 +557,30 @@
 
 .aacal-theme .goal-item {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 14px 16px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  transition: all 0.3s ease;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 16px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aacal-theme .goal-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
 }
 
 .aacal-theme .goal-item .material-symbols-outlined {
   color: var(--accent-secondary);
-  font-size: 20px;
+  font-size: 22px;
   flex-shrink: 0;
-  margin-top: 1px;
 }
 
 .aacal-theme .goal-text {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 14.5px;
+  font-weight: 600;
   color: var(--text-main);
 }
 
@@ -588,8 +612,7 @@
   to { opacity: 1; }
 }
 
-/* Premium Overhaul & Gamification Custom CSS */
-
+/* View Mode & Nav Selectors */
 .aacal-theme .view-mode-selector {
   display: flex;
   background: rgba(30, 41, 59, 0.45);
@@ -598,15 +621,16 @@
   border-radius: 30px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .aacal-theme .selector-btn {
   border: none;
   background: transparent;
   color: var(--text-muted);
-  padding: 8px 18px;
+  padding: 8px 20px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -620,7 +644,7 @@
 .aacal-theme .selector-btn.active {
   background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.45);
 }
 
 .aacal-theme .day-navigator {
@@ -628,11 +652,12 @@
   align-items: center;
   background: rgba(30, 41, 59, 0.45);
   border: 1px solid var(--card-border);
-  padding: 6px 14px;
+  padding: 6px 16px;
   border-radius: 30px;
-  gap: 12px;
+  gap: 14px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .aacal-theme .nav-arrow-btn {
@@ -643,19 +668,23 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   transition: all 0.2s ease;
 }
 
 .aacal-theme .nav-arrow-btn:hover {
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.aacal-theme .nav-arrow-btn:active {
+  transform: scale(0.9);
 }
 
 .aacal-theme .nav-arrow-btn .material-symbols-outlined {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .aacal-theme .focused-day-display {
@@ -667,65 +696,66 @@
   text-align: center;
 }
 
+/* Gamified Reward scorecard */
 .aacal-theme .credits-scorecard {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(251, 191, 36, 0.1);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-top: 14px;
+  gap: 10px;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 10px 20px;
+  border-radius: 24px;
+  margin-top: 16px;
   animation: float 3s ease-in-out infinite;
-  box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
 }
 
 .aacal-theme .credits-scorecard .star-icon {
   color: #fbbf24;
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .aacal-theme .credits-scorecard .credits-text {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   color: #fef08a;
 }
 
 .aacal-theme .day-credits-badge {
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 11.5px;
+  font-weight: 800;
   color: #fbbf24;
-  background: rgba(251, 191, 36, 0.08);
-  padding: 2px 8px;
+  background: rgba(251, 191, 36, 0.12);
+  padding: 3px 10px;
   border-radius: 8px;
-  border: 1px solid rgba(251, 191, 36, 0.15);
+  border: 1px solid rgba(251, 191, 36, 0.25);
   display: inline-block;
   align-self: flex-start;
 }
 
 .aacal-theme .activity-credit-tag {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 800;
   color: #fbbf24;
-  background: rgba(251, 191, 36, 0.1);
-  padding: 1px 6px;
+  background: rgba(251, 191, 36, 0.12);
+  padding: 2px 8px;
   border-radius: 6px;
-  border: 1px solid rgba(251, 191, 36, 0.15);
-  margin-left: 8px;
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  margin-left: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.05em;
 }
 
 .aacal-theme .activity-main-line {
   display: flex;
   align-items: center;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .aacal-theme .planner-grid.grid-1 {
   grid-template-columns: 1fr !important;
-  max-width: 600px;
-  margin: 0 auto 40px auto;
+  max-width: 620px;
+  margin: 0 auto 48px auto;
 }
 
 .aacal-theme .planner-grid.grid-3 {
@@ -744,7 +774,7 @@
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  50% { transform: translateY(-5px); }
 }
 
 @keyframes shake {
@@ -770,65 +800,66 @@
   }
 }
 
-/* Achievements Wall Styles */
+/* Achievements Wall & Status Badges */
 .aacal-theme .badge-lag {
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 6px;
+  padding: 3px 10px;
+  border-radius: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
 }
 
 .aacal-theme .lag-on-time {
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399; /* Emerald 400 for high contrast dark-mode legibility */
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .aacal-theme .lag-a-bit-late {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24; /* Amber 400 */
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .aacal-theme .lag-late {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171; /* Red 400 */
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .aacal-theme .badge-credit {
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 6px;
-  background: rgba(251, 191, 36, 0.1);
+  padding: 3px 10px;
+  border-radius: 8px;
+  background: rgba(251, 191, 36, 0.15);
   color: #fbbf24;
-  border: 1px solid rgba(251, 191, 36, 0.2);
+  border: 1px solid rgba(251, 191, 36, 0.3);
 }
 
 .aacal-theme .glow-pill {
-  background: rgba(251, 191, 36, 0.08);
-  border: 1.5px solid rgba(251, 191, 36, 0.2);
-  padding: 6px 14px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  padding: 8px 18px;
   border-radius: 9999px;
-  box-shadow: 0 0 15px rgba(251, 191, 36, 0.15);
-  font-size: 12px;
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.2);
+  font-size: 13px;
   color: #fbbf24;
+  font-weight: 700;
 }
 
 .aacal-theme .rank-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  font-weight: 700;
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 800;
+  font-size: 13px;
   color: var(--text-main);
 }
 
@@ -836,23 +867,34 @@
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #ffffff;
   border: none;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .aacal-theme .btn-success:hover {
   background: linear-gradient(135deg, #059669 0%, #047857 100%);
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+  transform: translateY(-2px);
+}
+
+.aacal-theme .btn-success:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .aacal-theme .border-accent {
-  border-color: rgba(139, 92, 246, 0.25) !important;
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.35) !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.12);
 }
 
 .aacal-theme .filter-tabs {
-  background: rgba(15, 23, 42, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px;
+  border-radius: 10px;
 }
 
 .aacal-theme .filter-btn {
@@ -860,12 +902,14 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
+  font-family: inherit;
+  font-weight: 700;
 }
 
 .aacal-theme .filter-btn.bg-primary {
   background: var(--accent-primary);
   color: #ffffff;
-  box-shadow: 0 2px 8px var(--accent-glow);
+  box-shadow: 0 2px 10px var(--accent-glow);
 }
 
 .aacal-theme .text-gradient {
@@ -874,14 +918,14 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Parent Login Portal Styles */
+/* Parent Login Portal Styles (Glassmorphism & Contrast) */
 .login-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(9, 13, 22, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
@@ -891,50 +935,54 @@
 }
 
 .login-card {
-  max-width: 400px;
+  max-width: 440px;
   width: 90%;
-  padding: 32px;
-  border-radius: 24px;
+  padding: 40px 32px;
+  border-radius: 28px;
   text-align: center;
-  background: rgba(30, 41, 59, 0.45);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .login-header {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .login-header h2 {
-  font-size: 24px;
-  margin: 12px 0 6px 0;
+  font-size: 26px;
+  margin: 16px 0 8px 0;
   font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: #ffffff;
 }
 
 .login-header p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .login-header .icon-badge {
   display: inline-flex;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: rgba(139, 92, 246, 0.1);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1.5px solid rgba(139, 92, 246, 0.25);
   align-items: center;
   justify-content: center;
 }
 
 .login-header .icon-badge span {
-  font-size: 28px;
+  font-size: 32px;
+  color: #a78bfa;
 }
 
 .login-actions {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .btn-login {
@@ -943,12 +991,12 @@
   justify-content: center;
   gap: 12px;
   width: 100%;
-  padding: 12px 16px;
-  font-size: 14px;
+  padding: 14px 20px;
+  font-size: 14.5px;
   font-weight: 700;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid transparent;
 }
 
@@ -957,24 +1005,28 @@
   cursor: not-allowed;
 }
 
+.btn-login:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
 .btn-login .btn-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .btn-google {
   background: #ffffff;
-  color: #1e293b;
+  color: #0f172a;
   border-color: #e2e8f0;
 }
 
 .btn-google:hover:not(:disabled) {
   background: #f8fafc;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 
 .btn-facebook {
@@ -984,26 +1036,26 @@
 
 .btn-facebook:hover:not(:disabled) {
   background: #166fe5;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(24, 119, 242, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
 }
 
 .btn-microsoft {
   background: #2f2f2f;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .btn-microsoft:hover:not(:disabled) {
   background: #202020;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
 }
 
 /* Spinner */
 .spinner {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.25);
   border-top: 2px solid currentColor;
   border-radius: 50%;
@@ -1022,7 +1074,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(10px);
+    transform: scale(0.95) translateY(12px);
   }
   to {
     opacity: 1;
@@ -1032,14 +1084,14 @@
 
 /* Centered, mobile-friendly Achievements Container */
 .aacal-theme .aacal-container {
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px;
   width: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   position: relative;
   z-index: 1;
 }
@@ -1050,7 +1102,7 @@
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
   border-radius: 24px;
-  padding: 24px;
+  padding: 28px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -1099,9 +1151,3 @@
     width: 100%;
   }
 }
-
-
-
-
-
-

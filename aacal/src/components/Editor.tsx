@@ -302,10 +302,10 @@ export const Editor: React.FC = () => {
 
   if (checkingProfiles) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="glass-panel border-accent text-center animate-fade-in" style={{ padding: '40px 30px' }}>
-          <div className="spinner" style={{ margin: '0 auto 20px auto', width: '40px', height: '40px' }}></div>
-          <h2 style={{ color: 'var(--text-main)', fontSize: '20px', fontWeight: 'bold' }}>Checking Profiles...</h2>
+      <div className="flex items-center justify-center min-h-[80vh] px-4">
+        <div className="w-full max-w-md p-8 text-center rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="spinner mx-auto mb-6 w-10 h-10"></div>
+          <h2 className="text-xl font-bold text-white tracking-tight">Checking Profiles...</h2>
         </div>
       </div>
     );
@@ -313,75 +313,42 @@ export const Editor: React.FC = () => {
 
   if (!userId && kidsList.length > 1) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-        <div className="glass-panel border-accent animate-fade-in" style={{ maxWidth: '600px', width: '100%', padding: '40px 30px', textAlign: 'center' }}>
-          <div className="logo-container" style={{ marginBottom: '24px', display: 'inline-flex' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: 'var(--accent)' }}>family_restroom</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-2xl p-8 md:p-12 text-center rounded-3xl border border-violet-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-violet-600/10 border border-violet-500/25">
+            <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '32px' }}>family_restroom</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '28px', fontWeight: 800, marginBottom: '8px', fontFamily: "'Outfit', sans-serif" }}>Select a Planner to Edit</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '32px' }}>
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-2 font-outfit">Select a Planner to Edit</h2>
+          <p className="text-slate-300 mb-8 max-w-md mx-auto">
             Multiple kid profiles are linked to your account. Select one to edit:
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '32px' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {kidsList.map(kid => (
               <button
                 key={kid.id}
                 onClick={() => navigate(`/edit?userId=${kid.id}`)}
-                className="glass-panel border-accent-hover"
-                style={{
-                  padding: '24px 16px',
-                  cursor: 'pointer',
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '16px',
-                  textAlign: 'center',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '12px',
-                  transition: 'transform 0.2s, border-color 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.borderColor = 'var(--accent)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                }}
+                className="flex flex-col items-center gap-4 p-6 rounded-2xl border border-white/5 bg-slate-900/20 hover:bg-slate-900/40 hover:border-violet-500/50 hover:-translate-y-1 transition-all duration-300 cursor-pointer text-center group"
               >
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  background: 'var(--primary-gradient)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#fff',
-                  fontWeight: 'bold',
-                  fontSize: '20px'
-                }}>
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-violet-500/10 group-hover:scale-105 transition-transform">
                   {kid.id.charAt(0).toUpperCase()}
                 </div>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '16px', color: 'var(--text-main)', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', maxWidth: '200px' }}>{kid.title.replace("'S PLANNER", "")}</h3>
-                  <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>@{kid.id}</span>
+                <div className="w-full">
+                  <h3 className="text-base font-bold text-white truncate max-w-full">{kid.title.replace("'S PLANNER", "")}</h3>
+                  <span className="text-xs text-slate-400">@{kid.id}</span>
                 </div>
               </button>
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'center' }}>
-            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', margin: 0 }}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link to="/onboarding" className="nav-link btn-save">
               <span className="material-symbols-outlined">add_circle</span>
               Add Another Kid Profile
             </Link>
             <button 
               onClick={() => signOut(auth)} 
-              className="btn btn-secondary"
-              style={{ padding: '8px 20px', borderRadius: '20px' }}
+              className="nav-link btn-delete"
             >
               Sign Out
             </button>
@@ -391,25 +358,25 @@ export const Editor: React.FC = () => {
     );
   }
 
-  if (loading) return <div className="p-8 text-center text-white">Loading Editor...</div>;
+  if (loading) return <div className="flex items-center justify-center min-h-[80vh] text-slate-300 font-bold">Loading Editor...</div>;
   if (!userData) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="aacal-card border-accent text-center animate-fade-in" style={{ maxWidth: '480px', padding: '40px 30px', margin: '0 auto' }}>
-          <div className="logo-container" style={{ background: 'var(--delete-gradient)', boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)', marginBottom: '24px', display: 'inline-flex' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: '#ffffff' }}>person_off</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-md p-8 md:p-10 text-center rounded-3xl border border-red-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-red-600/10 border border-red-500/25 shadow-lg shadow-red-500/10">
+            <span className="material-symbols-outlined text-red-400" style={{ fontSize: '32px' }}>person_off</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>Planner Not Found</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', lineHeight: 1.6, marginBottom: '28px', color: 'var(--text-muted)' }}>
-            The kid profile you are trying to edit <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong> has not been set up in our system yet.
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-4 font-outfit">Planner Not Found</h2>
+          <p className="text-slate-300 leading-relaxed mb-8">
+            The kid profile you are trying to edit <strong className="text-white">"{userId}"</strong> has not been set up in our system yet.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link to="/onboarding" className="btn-link btn-save" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', fontWeight: 'bold', gap: '8px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_circle</span>
+          <div className="flex flex-col gap-4">
+            <Link to="/onboarding" className="nav-link btn-save justify-center">
+              <span className="material-symbols-outlined">add_circle</span>
               Create Kid Profile
             </Link>
-            <Link to="/" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+            <Link to="/" className="nav-link justify-center">
+              <span className="material-symbols-outlined">arrow_back</span>
               Go Back to Main Page
             </Link>
           </div>
@@ -421,18 +388,18 @@ export const Editor: React.FC = () => {
   const isOwner = userData.settings?.parentId === currentUser?.uid;
   if (!isOwner) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="aacal-card border-accent text-center animate-fade-in" style={{ maxWidth: '480px', padding: '40px 30px', margin: '0 auto' }}>
-          <div className="logo-container" style={{ background: 'var(--delete-gradient)', boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)', marginBottom: '24px', display: 'inline-flex' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: '#ffffff' }}>gavel</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-md p-8 md:p-10 text-center rounded-3xl border border-red-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-red-600/10 border border-red-500/25 shadow-lg shadow-red-500/10">
+            <span className="material-symbols-outlined text-red-400" style={{ fontSize: '32px' }}>gavel</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>Access Denied</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', lineHeight: 1.6, marginBottom: '28px', color: 'var(--text-muted)' }}>
-            You do not have permission to edit the profile <strong style={{ color: 'var(--text-main)' }}>"{userId}"</strong>.
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-4 font-outfit">Access Denied</h2>
+          <p className="text-slate-300 leading-relaxed mb-8">
+            You do not have permission to edit the profile <strong className="text-white">"{userId}"</strong>.
           </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <Link to="/edit" className="btn-link" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', padding: '12px 24px', borderRadius: '30px', gap: '8px' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_back</span>
+          <div className="flex justify-center">
+            <Link to="/edit" className="nav-link">
+              <span className="material-symbols-outlined">arrow_back</span>
               Go to Your Profiles
             </Link>
           </div>
@@ -459,77 +426,75 @@ export const Editor: React.FC = () => {
     }
   }
 
+  const getGridClass = () => {
+    if (editViewMode === '1') return "grid grid-cols-1 max-w-2xl mx-auto gap-8 mb-12 animate-fade-in";
+    if (editViewMode === '3') return "grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 animate-fade-in";
+    return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-6 mb-12 animate-fade-in";
+  };
+
   return (
-    <div className="app-container">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div className="logo-container" style={{ margin: 0 }}>
+    <div className="app-container px-4 py-8">
+      {/* Brand Header Row */}
+      <header className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between w-full mb-10">
+        <div className="flex items-center gap-4">
+          <div className="logo-container flex-shrink-0">
             <span className="material-symbols-outlined">edit_calendar</span>
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <h1 style={{ margin: 0, fontSize: '28px' }}>Planner Editor</h1>
-            <p style={{ margin: 0, opacity: 0.8 }}>Configure Weekly Schedule & Settings</p>
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight font-outfit">Planner Editor</h1>
+            <p className="text-slate-400 text-sm font-medium">Configure Weekly Schedule &amp; Settings</p>
           </div>
         </div>
 
         {kidsList.length > 0 && (
-          <div className="profile-switcher-container" style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '8px 16px', borderRadius: '24px' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--accent)' }}>child_care</span>
-            <span style={{ fontSize: '13px', fontWeight: 'bold' }}>Editing profile:</span>
+          <div className="flex items-center gap-3 bg-slate-900/60 border border-white/5 p-2 rounded-2xl backdrop-blur-md">
+            <span className="material-symbols-outlined text-violet-400 ml-2" style={{ fontSize: '18px' }}>child_care</span>
+            <span className="text-xs font-bold text-slate-300">Editing Profile:</span>
             <select
               value={userId}
               onChange={(e) => navigate(`/edit?userId=${e.target.value}`)}
-              style={{
-                background: 'rgba(0,0,0,0.2)',
-                color: '#fff',
-                border: '1px solid rgba(255,255,255,0.15)',
-                borderRadius: '8px',
-                padding: '4px 8px',
-                fontSize: '13px',
-                outline: 'none',
-                cursor: 'pointer'
-              }}
+              className="bg-slate-950 text-white text-xs font-bold py-1.5 px-3 rounded-lg border border-white/10 outline-none cursor-pointer focus:border-violet-500 transition-colors"
             >
               {kidsList.map(kid => (
-                <option key={kid.id} value={kid.id} style={{ background: '#1c1917', color: '#fff' }}>
+                <option key={kid.id} value={kid.id} className="bg-slate-950 text-white">
                   {kid.title.replace("'S PLANNER", "")}
                 </option>
               ))}
             </select>
             <Link 
               to="/onboarding" 
-              className="btn-link btn-save" 
-              style={{ padding: '6px 12px', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', borderRadius: '16px', margin: 0 }}
+              className="nav-link btn-save py-1.5 px-3 text-xs font-bold inline-flex items-center gap-1"
             >
-              <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>add</span>
-              Add Kid
+              <span className="material-symbols-outlined text-xs">add</span>
+              Add Profile
             </Link>
           </div>
         )}
       </header>
 
-      <div className="nav-bar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <Link to={`/?userId=${userId}`} className="btn-link">
+      {/* Main Options Menu Navigation */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full mb-10 pb-6 border-b border-white/5">
+        <div className="flex gap-3">
+          <Link to={`/?userId=${userId}`} className="nav-link py-2.5 px-5 text-sm font-semibold">
             <span className="material-symbols-outlined">arrow_back</span>
-            Back to Planner Portal
+            Back to Planner
           </Link>
-          <Link to={`/achievements?userId=${userId}`} className="btn-link">
+          <Link to={`/achievements?userId=${userId}`} className="nav-link py-2.5 px-5 text-sm font-semibold">
             <span className="material-symbols-outlined">emoji_events</span>
-            View Achievements Wall
+            Achievements Wall
           </Link>
         </div>
         <button 
           onClick={() => signOut(auth)} 
-          className="btn btn-secondary" 
-          style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', padding: '8px 14px', fontSize: '13px' }}
+          className="nav-link btn-delete py-2.5 px-5 text-sm font-semibold flex items-center justify-center"
         >
-          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
+          <span className="material-symbols-outlined">logout</span>
           Sign Out Parent
         </button>
       </div>
 
-      <section className="meta-panel">
+      {/* Settings Form Container */}
+      <section className="meta-panel shadow-lg">
         <div className="meta-panel-header">
           <span className="material-symbols-outlined">settings</span>
           <h2>Weekly Planner Settings</h2>
@@ -537,7 +502,7 @@ export const Editor: React.FC = () => {
 
         <form onSubmit={saveMetadata}>
           <div className="grid-2col">
-            <div>
+            <div className="flex flex-col gap-4">
               <div className="form-group">
                 <label>Planner Title</label>
                 <input 
@@ -545,6 +510,7 @@ export const Editor: React.FC = () => {
                   className="input-field" 
                   value={metaTitle} 
                   onChange={(e) => setMetaTitle(e.target.value)}
+                  placeholder="e.g., BRADY'S PLANNER"
                 />
               </div>
 
@@ -555,6 +521,7 @@ export const Editor: React.FC = () => {
                   className="input-field" 
                   value={metaSubtitle} 
                   onChange={(e) => setMetaSubtitle(e.target.value)}
+                  placeholder="e.g., Daily Checklist & Routine"
                 />
               </div>
             </div>
@@ -566,101 +533,108 @@ export const Editor: React.FC = () => {
                 className="textarea-field" 
                 value={metaGoals}
                 onChange={(e) => setMetaGoals(e.target.value)}
+                placeholder="e.g., Brush teeth without being asked&#10;Complete all speech exercises"
               />
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-            <button type="submit" className="btn-link btn-save">
+          <div className="flex justify-end mt-6">
+            <button type="submit" className="nav-link btn-save py-2.5 px-6 font-semibold shadow-lg">
               <span className="material-symbols-outlined">save</span>
-              Save Planner Settings
+              Save Settings
             </button>
           </div>
         </form>
       </section>
 
-      <div className="editor-controls-bar" style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', marginBottom: '30px' }}>
-        <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '24px', fontWeight: 700, margin: 0 }}>Daily Schedules</h2>
+      {/* Header controls for Schedule Grid */}
+      <div className="flex flex-col gap-4 items-center justify-between w-full mb-8 pt-6">
+        <h2 className="text-2xl font-extrabold text-white font-outfit">Daily Schedules</h2>
 
-        <div className="view-mode-selector">
-          {(['1', '3', '7'] as const).map((mode) => (
-            <button
-              key={mode}
-              className={`selector-btn ${editViewMode === mode ? 'active' : ''}`}
-              onClick={() => setEditViewMode(mode)}
-            >
-              {mode === '1' ? 'Edit 1 Day' : mode === '3' ? 'Edit 3 Days' : 'Edit 7 Days'}
-            </button>
-          ))}
-        </div>
-
-        {editViewMode !== '7' && schedule.length > 0 && (
-          <div className="day-navigator">
-            <button className="nav-arrow-btn" onClick={goToPrevDay}>
-              <span className="material-symbols-outlined">chevron_left</span>
-            </button>
-            <span className="focused-day-display">
-              {schedule.find(d => d.id === focusedDayId)?.dayName || 'Select Day'}
-            </span>
-            <button className="nav-arrow-btn" onClick={goToNextDay}>
-              <span className="material-symbols-outlined">chevron_right</span>
-            </button>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6 mt-2">
+          <div className="view-mode-selector">
+            {(['1', '3', '7'] as const).map((mode) => (
+              <button
+                key={mode}
+                className={`selector-btn ${editViewMode === mode ? 'active' : ''}`}
+                onClick={() => setEditViewMode(mode)}
+              >
+                {mode === '1' ? 'Edit 1 Day' : mode === '3' ? 'Edit 3 Days' : 'Edit 7 Days'}
+              </button>
+            ))}
           </div>
-        )}
+
+          {editViewMode !== '7' && schedule.length > 0 && (
+            <div className="day-navigator">
+              <button className="nav-arrow-btn" onClick={goToPrevDay}>
+                <span className="material-symbols-outlined">chevron_left</span>
+              </button>
+              <span className="focused-day-display font-semibold">
+                {schedule.find(d => d.id === focusedDayId)?.dayName || 'Select Day'}
+              </span>
+              <button className="nav-arrow-btn" onClick={goToNextDay}>
+                <span className="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       
-      <div className="grid-double-panel">
-        <main className={`planner-grid grid-${editViewMode}`}>
+      {/* Schedule editor grid + task library sidebar */}
+      <div className="grid-double-panel items-start">
+        <main className={getGridClass()}>
           {visibleDays.map((day) => (
             <div key={day.id} className="day-card" id={day.id}>
-              <div className="day-header">
-                <span className="day-name">{day.dayName}</span>
+              <div className="day-header pb-4 mb-6 border-b border-white/5">
+                <span className="day-name text-2xl font-extrabold text-white font-outfit">{day.dayName}</span>
               </div>
 
-              <div className="activity-editor-list">
+              <div className="activity-editor-list flex flex-col gap-4">
                 {(day.activities || []).map((act) => (
-                  <div key={act.id} className="activity-edit-card" style={{ flexDirection: 'column', gap: '12px', padding: '16px', borderRadius: '16px', background: 'rgba(15, 23, 42, 0.4)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <div className="activity-form-row" style={{ display: 'flex', gap: '12px' }}>
-                      <div className="form-group" style={{ flex: 1 }}>
-                        <label style={{ fontSize: '10px' }}>From</label>
+                  <div 
+                    key={act.id} 
+                    className="activity-edit-card flex flex-col gap-4 p-4 rounded-2xl bg-slate-900/30 border border-white/5 shadow-inner"
+                  >
+                    <div className="flex gap-3">
+                      <div className="form-group flex-1">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">From</label>
                         <input 
                           type="time" 
-                          className="input-field" 
+                          className="input-field py-2 px-3 text-xs" 
                           value={act.startTime || ''}
                           onChange={(e) => updateActivity(day.id, act.id, { startTime: e.target.value })}
                         />
                       </div>
-                      <div className="form-group" style={{ flex: 1 }}>
-                        <label style={{ fontSize: '10px' }}>To</label>
+                      <div className="form-group flex-1">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">To</label>
                         <input 
                           type="time" 
-                          className="input-field" 
+                          className="input-field py-2 px-3 text-xs" 
                           value={act.endTime || ''}
                           onChange={(e) => updateActivity(day.id, act.id, { endTime: e.target.value })}
                         />
                       </div>
                     </div>
 
-                    <div className="activity-form-row" style={{ display: 'flex', gap: '12px' }}>
-                      <div className="form-group" style={{ flex: 2 }}>
-                        <label style={{ fontSize: '10px' }}>Task Name</label>
+                    <div className="flex gap-3 items-end">
+                      <div className="form-group flex-[2]">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Task</label>
                         <select 
-                          className="input-field" 
+                          className="input-field py-2 px-3 text-xs bg-slate-950 text-white" 
                           value={act.taskId || ''}
                           onChange={(e) => updateActivity(day.id, act.id, { taskId: e.target.value })}
-                          style={{ color: '#fff', background: 'var(--input-bg)' }}
                         >
-                          <option value="">-- Select Task --</option>
+                          <option value="" className="text-slate-400">Select Task</option>
                           {(userData.tasks || []).map((t) => (
-                            <option key={t.id} value={t.id}>{t.title}</option>
+                            <option key={t.id} value={t.id} className="text-white bg-slate-950">{t.title}</option>
                           ))}
                         </select>
                       </div>
-                      <div className="form-group" style={{ flex: 1 }}>
-                        <label style={{ fontSize: '10px' }}>Credits</label>
+                      <div className="form-group flex-[1]">
+                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Credits</label>
                         <input 
                           type="number" 
-                          className="input-field" 
+                          className="input-field py-2 px-3 text-xs" 
                           min="0"
                           placeholder="0"
                           value={act.credits || ''}
@@ -669,13 +643,12 @@ export const Editor: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="form-actions-row" style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '4px' }}>
+                    <div className="flex justify-end border-t border-white/5 pt-3">
                       <button 
-                        className="btn-link btn-delete"
-                        style={{ padding: '6px 12px', fontSize: '12px', borderRadius: '15px' }}
+                        className="nav-link btn-delete py-1.5 px-3 text-[11px] font-bold flex items-center gap-1"
                         onClick={() => deleteActivity(day.id, act.id)}
                       >
-                        <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>delete</span>
+                        <span className="material-symbols-outlined text-[13px]">delete</span>
                         Delete
                       </button>
                     </div>
@@ -683,44 +656,45 @@ export const Editor: React.FC = () => {
                 ))}
               </div>
 
-              <div className="add-activity-container" style={{ marginTop: '24px' }}>
-                <div className="add-activity-title">
-                  <span className="material-symbols-outlined">add_circle</span>
-                  Add New Activity
+              {/* Add Activity Section inside Day Card */}
+              <div className="mt-8 pt-6 border-t border-white/5">
+                <div className="flex items-center gap-2 mb-4 text-slate-300 font-bold text-sm tracking-tight">
+                  <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '18px' }}>add_circle</span>
+                  Add Activity
                 </div>
                 
-                <form onSubmit={(e) => addActivity(day.id, e)}>
-                  <div className="activity-form-row" style={{ display: 'flex', gap: '12px' }}>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>From Time</label>
-                      <input name="startTime" type="time" className="input-field" required />
+                <form onSubmit={(e) => addActivity(day.id, e)} className="flex flex-col gap-4">
+                  <div className="flex gap-3">
+                    <div className="form-group flex-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">From Time</label>
+                      <input name="startTime" type="time" className="input-field py-2 px-3 text-xs" required />
                     </div>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>To Time (Optional)</label>
-                      <input name="endTime" type="time" className="input-field" />
+                    <div className="form-group flex-1">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">To Time</label>
+                      <input name="endTime" type="time" className="input-field py-2 px-3 text-xs" />
                     </div>
                   </div>
 
-                  <div className="activity-form-row" style={{ display: 'flex', gap: '12px', marginTop: '8px' }}>
-                    <div className="form-group" style={{ flex: 2 }}>
-                      <label>Task</label>
-                      <select name="taskId" className="input-field" required style={{ color: '#fff', background: 'var(--input-bg)' }}>
-                        <option value="">-- Select Task --</option>
+                  <div className="flex gap-3 items-end">
+                    <div className="form-group flex-[2]">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Task</label>
+                      <select name="taskId" className="input-field py-2 px-3 text-xs bg-slate-950 text-white" required>
+                        <option value="" className="text-slate-400">Select Task</option>
                         {(userData.tasks || []).map((t) => (
-                          <option key={t.id} value={t.id}>{t.title}</option>
+                          <option key={t.id} value={t.id} className="text-white bg-slate-950">{t.title}</option>
                         ))}
                       </select>
                     </div>
-                    <div className="form-group" style={{ flex: 1 }}>
-                      <label>Credits</label>
-                      <input name="credits" type="number" min="0" className="input-field" placeholder="e.g. 5" />
+                    <div className="form-group flex-[1]">
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Credits</label>
+                      <input name="credits" type="number" min="0" className="input-field py-2 px-3 text-xs" placeholder="e.g. 5" />
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px' }}>
-                    <button type="submit" className="btn-link btn-save" style={{ padding: '8px 16px', fontSize: '12px', borderRadius: '20px' }}>
-                      <span className="material-symbols-outlined">add</span>
-                      Add Activity
+                  <div className="flex justify-end mt-2">
+                    <button type="submit" className="nav-link btn-save py-2 px-4 text-xs font-bold">
+                      <span className="material-symbols-outlined text-[14px]">add</span>
+                      Add to Schedule
                     </button>
                   </div>
                 </form>
@@ -729,78 +703,82 @@ export const Editor: React.FC = () => {
           ))}
         </main>
 
-        <aside className="glass-card" style={{ padding: '24px', borderRadius: '24px', background: 'rgba(30, 41, 59, 0.45)', border: '1px solid rgba(255, 255, 255, 0.05)', position: 'sticky', top: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '16px' }}>
-            <span className="material-symbols-outlined" style={{ color: 'var(--accent-primary)', fontSize: '28px' }}>database</span>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '20px', fontWeight: 700, margin: 0 }}>Task Library</h2>
+        <aside className="w-full lg:w-[360px] p-6 rounded-3xl border border-white/5 bg-slate-900/40 backdrop-blur-xl shadow-xl lg:sticky lg:top-6 flex-shrink-0 animate-fade-in mb-12">
+          <div className="flex items-center gap-3 pb-4 mb-6 border-b border-white/5">
+            <span className="material-symbols-outlined text-violet-400" style={{ fontSize: '24px' }}>database</span>
+            <h2 className="text-lg font-extrabold text-white font-outfit">Task Library</h2>
           </div>
 
-          <form onSubmit={handleAddTask} style={{ marginBottom: '24px' }}>
-            <div className="form-group" style={{ marginBottom: '12px' }}>
+          <form onSubmit={handleAddTask} className="mb-6">
+            <div className="form-group">
               <label>Add Reusable Task</label>
-              <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
+              <div className="flex gap-2 mt-2">
                 <input
                   type="text"
-                  className="input-field"
+                  className="input-field py-2.5 px-4 text-sm"
                   placeholder="e.g., Clean Bedroom"
                   maxLength={60}
                   value={newTaskTitle}
                   onChange={(e) => setNewTaskTitle(e.target.value.replace(/[\n\r]/g, ''))}
                   required
                 />
-                <button type="submit" className="btn-link btn-save" style={{ padding: '10px 16px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span className="material-symbols-outlined">add</span>
+                <button type="submit" className="nav-link btn-save py-2 px-4 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="material-symbols-outlined text-[18px]">add</span>
                 </button>
               </div>
               {taskError && (
-                <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px', fontWeight: 500 }}>
+                <p className="text-red-400 text-xs font-semibold mt-2">
                   {taskError}
                 </p>
               )}
             </div>
           </form>
 
-          <div className="task-list" style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '500px', overflowY: 'auto', paddingRight: '4px' }}>
+          <div className="task-list max-h-[500px] overflow-y-auto pr-1 flex flex-col gap-3 scrollbar-thin">
             {(userData.tasks || []).map((task) => (
-              <div key={task.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', borderRadius: '14px', background: 'rgba(15, 23, 42, 0.3)', border: '1px solid rgba(255,255,255,0.03)' }}>
+              <div 
+                key={task.id} 
+                className="flex items-center justify-between p-4 rounded-2xl bg-slate-950/40 border border-white/5 shadow-sm hover:border-white/10 transition-colors"
+              >
                 {editingTaskId === task.id ? (
-                  <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                  <div className="flex gap-2 w-full">
                     <input
                       type="text"
-                      className="input-field"
+                      className="input-field py-1.5 px-3 text-xs"
                       value={editingTaskTitle}
                       maxLength={60}
                       onChange={(e) => setEditingTaskTitle(e.target.value.replace(/[\n\r]/g, ''))}
-                      style={{ padding: '6px 12px', fontSize: '14px' }}
                       autoFocus
                     />
-                    <button onClick={() => handleUpdateTask(task.id)} className="btn-link btn-save" style={{ padding: '6px 10px', borderRadius: '10px' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>check</span>
+                    <button onClick={() => handleUpdateTask(task.id)} className="nav-link btn-save p-1.5 min-w-0 rounded-lg">
+                      <span className="material-symbols-outlined text-[16px]">check</span>
                     </button>
-                    <button onClick={() => setEditingTaskId(null)} className="btn-link" style={{ padding: '6px 10px', borderRadius: '10px', background: 'rgba(255,255,255,0.05)', color: '#94a3b8' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>close</span>
+                    <button onClick={() => setEditingTaskId(null)} className="nav-link p-1.5 min-w-0 rounded-lg bg-slate-800 hover:bg-slate-700">
+                      <span className="material-symbols-outlined text-[16px]">close</span>
                     </button>
                   </div>
                 ) : (
                   <>
-                    <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--text-main)', wordBreak: 'break-word', marginRight: '12px' }}>
+                    <span className="text-sm font-semibold text-slate-200 truncate pr-3 select-all">
                       {task.title}
                     </span>
-                    <div style={{ display: 'flex', gap: '6px', flexShrink: 0 }}>
+                    <div className="flex gap-1 flex-shrink-0">
                       <button
                         onClick={() => {
                           setEditingTaskId(task.id);
                           setEditingTaskTitle(task.title);
                         }}
-                        style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: '4px' }}
+                        className="p-1.5 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white cursor-pointer"
+                        title="Edit task name"
                       >
-                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>edit</span>
+                        <span className="material-symbols-outlined text-[16px]">edit</span>
                       </button>
                       <button
                         onClick={() => handleDeleteTask(task.id)}
-                        style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '4px' }}
+                        className="p-1.5 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-300 cursor-pointer"
+                        title="Delete task from library"
                       >
-                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>delete</span>
+                        <span className="material-symbols-outlined text-[16px]">delete</span>
                       </button>
                     </div>
                   </>

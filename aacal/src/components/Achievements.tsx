@@ -143,14 +143,14 @@ export const Achievements: React.FC = () => {
 
   if (!userId) {
     return (
-      <div className="aacal-container" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div className="glass-panel border-accent text-center animate-fade-in" style={{ padding: '40px 30px', maxWidth: '400px' }}>
-          <div className="logo-container" style={{ background: 'var(--delete-gradient)', marginBottom: '20px', display: 'inline-flex', boxShadow: '0 8px 24px rgba(239, 68, 68, 0.3)' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '32px', color: '#fff' }}>person_off</span>
+      <div className="flex items-center justify-center min-h-[80vh] p-6">
+        <div className="w-full max-w-md p-8 text-center rounded-3xl border border-red-500/20 bg-slate-900/40 backdrop-blur-xl shadow-2xl animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-red-600/10 border border-red-500/25 shadow-lg shadow-red-500/10">
+            <span className="material-symbols-outlined text-red-400" style={{ fontSize: '32px' }}>person_off</span>
           </div>
-          <h2 className="text-gradient" style={{ fontSize: '24px', fontWeight: 800, marginBottom: '16px', fontFamily: "'Outfit', sans-serif" }}>No Kid Profile Selected</h2>
-          <p className="text-secondary" style={{ fontSize: '15px', color: 'var(--text-muted)', marginBottom: '24px', lineHeight: 1.6 }}>Please specify a valid kid profile link to view achievements.</p>
-          <Link to="/" className="btn btn-secondary" style={{ display: 'inline-flex', padding: '10px 20px', borderRadius: '20px', textDecoration: 'none', cursor: 'pointer' }}>
+          <h2 className="text-3xl font-extrabold tracking-tight text-white mb-2 font-outfit">No Kid Profile Selected</h2>
+          <p className="text-slate-300 leading-relaxed mb-6">Please specify a valid kid profile link to view achievements.</p>
+          <Link to="/" className="nav-link justify-center">
             Go to Portal Homepage
           </Link>
         </div>
@@ -160,80 +160,83 @@ export const Achievements: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="aacal-container">
-        <div className="aacal-card text-center py-5">
-          <p className="loading-text">Loading Achievements...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-[80vh] text-slate-300 font-bold">
+        Loading Achievements...
       </div>
     );
   }
 
   return (
-    <div className="aacal-container">
+    <div className="aacal-container py-8">
       {/* Header section */}
-      <div className="aacal-card header-card flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <Link to={`/?userId=${userId}`} className="btn btn-secondary py-1 px-3 flex items-center gap-1" style={{ fontSize: '13px', display: 'flex', alignItems: 'center' }}>
-            <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>arrow_back</span>
-            Back
+      <div className="aacal-card flex items-center justify-between p-6 rounded-2xl bg-slate-900/40 border border-white/5">
+        <div className="flex items-center gap-4">
+          <Link to={`/?userId=${userId}`} className="nav-link py-2 px-4 text-xs font-bold inline-flex items-center gap-1">
+            <span className="material-symbols-outlined text-xs">arrow_back</span>
+            Calendar
           </Link>
           <div>
-            <h1 className="aacal-title" style={{ fontSize: '20px', margin: 0 }}>{userData?.title || 'AA Calendar'}</h1>
-            <p className="aacal-subtitle" style={{ fontSize: '13px', margin: 0 }}>Achievements Wall 🏆</p>
+            <h2 className="text-xl font-extrabold text-white tracking-tight leading-tight font-outfit">{userData?.title || 'AA Calendar'}</h2>
+            <p className="text-slate-400 text-md font-medium">Achievements Wall 🏆</p>
           </div>
         </div>
-        <div className="glow-pill font-bold flex items-center gap-2">
+        <div className="glow-pill">
           <span>🌟 {totalCredits} Credits</span>
         </div>
       </div>
 
       {/* Stats Summary Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="aacal-card text-center p-4">
-          <p className="text-secondary text-sm" style={{ margin: 0 }}>Total Gained Credits</p>
-          <p className="text-2xl font-bold text-gradient mt-1" style={{ margin: '4px 0 0 0' }}>🌟 {totalCredits}</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="aacal-card p-6 text-center flex flex-col justify-center items-center">
+          <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">Total Gained Credits</p>
+          <p className="text-3xl font-extrabold text-white font-outfit">🌟 {totalCredits}</p>
         </div>
-        <div className="aacal-card text-center p-4">
-          <p className="text-secondary text-sm" style={{ margin: 0 }}>Tasks Achieved</p>
-          <p className="text-2xl font-bold text-gradient mt-1" style={{ margin: '4px 0 0 0' }}>✓ {totalTasks}</p>
+        <div className="aacal-card p-6 text-center flex flex-col justify-center items-center">
+          <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-2">Tasks Achieved</p>
+          <p className="text-3xl font-extrabold text-white font-outfit">✓ {totalTasks}</p>
         </div>
       </div>
 
       {/* Parent Review Portal */}
-      <div className="aacal-card mb-4 border-accent">
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="section-title" style={{ fontSize: '16px', margin: 0 }}>Parent Review Portal 🔒</h2>
+      <div className="aacal-card border-accent p-6 rounded-2xl bg-slate-900/40">
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/5">
+          <h2 className="text-base font-extrabold text-white tracking-tight font-outfit">Parent Review Portal 🔒</h2>
           {!isParentActive ? (
-            <button className="btn btn-primary py-1 px-3 text-xs" style={{ cursor: 'pointer' }} onClick={() => setShowLogin(true)}>
+            <button 
+              className="nav-link py-1.5 px-3 text-xs font-bold" 
+              onClick={() => setShowLogin(true)}
+            >
               Unlock
             </button>
           ) : (
-            <span className="badge-lag lag-on-time" style={{ fontSize: '10px' }}>Active</span>
+            <span className="badge-lag lag-on-time text-[10px] font-bold">Active</span>
           )}
         </div>
 
         {isParentActive ? (
           <div>
             {pendingAchievements.length === 0 ? (
-              <p className="text-secondary text-center text-sm py-4">All caught up! No pending achievements to review.</p>
+              <p className="text-slate-400 text-center text-sm py-6">All caught up! No pending achievements to review.</p>
             ) : (
-              <div className="review-list flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 {pendingAchievements.map(ach => (
-                  <div key={ach.id} className="review-item flex justify-between items-center p-3 rounded-lg bg-surface border">
-                    <div>
-                      <h4 className="font-bold text-sm" style={{ margin: 0 }}>{ach.taskTitle}</h4>
-                      <p className="text-xs text-secondary mt-1" style={{ margin: '4px 0 0 0' }}>
+                  <div key={ach.id} className="flex justify-between items-center p-4 rounded-xl bg-slate-950/40 border border-white/5">
+                    <div className="flex flex-col gap-1.5">
+                      <h4 className="font-bold text-sm text-white">{ach.taskTitle}</h4>
+                      <p className="text-xs text-slate-400">
                         Checked-in: {getJsDate(ach.completedAt).toLocaleString()} ({ach.dayId})
                       </p>
-                      <div className="flex gap-2 mt-2">
-                        <span className="badge badge-credit">🌟 {ach.credits} Cr</span>
-                        <span className={`badge badge-lag lag-${(ach.lagStatus || 'on-time').toLowerCase().replace(' ', '-')}`}>
+                      <div className="flex gap-2">
+                        <span className="badge-credit text-[10px] font-bold">🌟 {ach.credits} Cr</span>
+                        <span className={`badge-lag lag-${(ach.lagStatus || 'on-time').toLowerCase().replace(' ', '-')} text-[10px]`}>
                           {ach.lagStatus || 'On-Time'}
                         </span>
                       </div>
                     </div>
-                    {/* Approve button only displayed when parent is logged in */}
-                    <button className="btn btn-approve btn-success py-1 px-3 text-xs" style={{ cursor: 'pointer' }} onClick={() => handleApprove(ach.id)}>
+                    <button 
+                      className="nav-link btn-save py-2 px-4 text-xs font-bold" 
+                      onClick={() => handleApprove(ach.id)}
+                    >
                       Approve
                     </button>
                   </div>
@@ -242,11 +245,14 @@ export const Achievements: React.FC = () => {
             )}
           </div>
         ) : (
-          <div className="text-center py-4">
-            <p className="text-secondary text-sm mb-3">
+          <div className="text-center py-6 flex flex-col items-center justify-center">
+            <p className="text-slate-400 text-sm mb-4 max-w-sm">
               {currentUser ? "You are signed in as a different parent. Please sign in as the correct parent." : "Unlock review controls to approve pending checklist rewards."}
             </p>
-            <button className="btn btn-primary py-1.5 px-4 text-sm" style={{ cursor: 'pointer' }} onClick={() => setShowLogin(true)}>
+            <button 
+              className="nav-link btn-save py-2 px-5 text-xs font-bold" 
+              onClick={() => setShowLogin(true)}
+            >
               {currentUser ? "Switch Parent Account" : "Enter Parent Login"}
             </button>
           </div>
@@ -254,50 +260,39 @@ export const Achievements: React.FC = () => {
       </div>
 
       {/* Historical Achievements List */}
-      <div className="aacal-card">
-        <div className="flex justify-between items-center mb-4 border-b pb-2">
-          <h2 className="section-title" style={{ fontSize: '16px', margin: 0 }}>Achievement Logs</h2>
-          <div className="filter-tabs flex gap-1 bg-surface p-1 rounded-lg">
-            <button
-              className={`filter-btn px-3 py-1 rounded text-xs transition ${filter === 'all-time' ? 'bg-primary font-bold' : 'text-secondary'}`}
-              onClick={() => setFilter('all-time')}
-              style={{ cursor: 'pointer' }}
-            >
-              All Time
-            </button>
-            <button
-              className={`filter-btn px-3 py-1 rounded text-xs transition ${filter === 'last-week' ? 'bg-primary font-bold' : 'text-secondary'}`}
-              onClick={() => setFilter('last-week')}
-              style={{ cursor: 'pointer' }}
-            >
-              Last Week
-            </button>
-            <button
-              className={`filter-btn px-3 py-1 rounded text-xs transition ${filter === 'top-month' ? 'bg-primary font-bold' : 'text-secondary'}`}
-              onClick={() => setFilter('top-month')}
-              style={{ cursor: 'pointer' }}
-            >
-              Top Month
-            </button>
+      <div className="aacal-card p-6 rounded-2xl bg-slate-900/40 border border-white/5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 pb-4 border-b border-white/5">
+          <h2 className="text-base font-extrabold text-white tracking-tight font-outfit">Achievement Logs</h2>
+          
+          <div className="filter-tabs flex gap-1 p-1 bg-slate-950/80 border border-white/5 rounded-xl">
+            {(['all-time', 'last-week', 'top-month'] as const).map(f => (
+              <button
+                key={f}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${filter === f ? 'bg-violet-600 text-white shadow' : 'text-slate-400 hover:text-white'}`}
+                onClick={() => setFilter(f)}
+              >
+                {f === 'all-time' ? 'All Time' : f === 'last-week' ? 'Last Week' : 'Top Month'}
+              </button>
+            ))}
           </div>
         </div>
 
         {filter === 'top-month' ? (
           <div>
             {topTasks.length === 0 ? (
-              <p className="text-secondary text-center text-sm py-5">No achievements recorded in the last 30 days.</p>
+              <p className="text-slate-400 text-center text-sm py-8">No achievements recorded in the last 30 days.</p>
             ) : (
-              <div className="top-list flex flex-col gap-2">
+              <div className="flex flex-col gap-2.5">
                 {topTasks.map((t, idx) => (
-                  <div key={idx} className="top-item flex justify-between items-center p-3 rounded-lg bg-surface border">
+                  <div key={idx} className="flex justify-between items-center p-4 rounded-xl bg-slate-950/40 border border-white/5">
                     <div className="flex items-center gap-3">
                       <span className="rank-badge">#{idx + 1}</span>
                       <div>
-                        <h4 className="font-bold text-sm" style={{ margin: 0 }}>{t.taskTitle}</h4>
-                        <p className="text-xs text-secondary mt-1" style={{ margin: '4px 0 0 0' }}>Completed {t.count} times</p>
+                        <h4 className="font-bold text-sm text-white">{t.taskTitle}</h4>
+                        <p className="text-xs text-slate-400 mt-1">Completed {t.count} times</p>
                       </div>
                     </div>
-                    <span className="font-bold text-sm text-gradient">🌟 +{t.credits} Credits</span>
+                    <span className="font-bold text-sm text-yellow-300">🌟 +{t.credits} Credits</span>
                   </div>
                 ))}
               </div>
@@ -306,42 +301,40 @@ export const Achievements: React.FC = () => {
         ) : (
           <div>
             {paginatedList.length === 0 ? (
-              <p className="text-secondary text-center text-sm py-5">No achievements recorded for this filter range.</p>
+              <p className="text-slate-400 text-center text-sm py-8">No achievements recorded for this filter range.</p>
             ) : (
               <div>
-                <div className="history-list flex flex-col gap-2">
+                <div className="flex flex-col gap-2.5">
                   {paginatedList.map(ach => (
-                    <div key={ach.id} className="history-item flex justify-between items-center p-3 rounded bg-surface border">
+                    <div key={ach.id} className="flex justify-between items-center p-4 rounded-xl bg-slate-950/40 border border-white/5">
                       <div>
-                        <h4 className="font-bold text-sm" style={{ margin: 0 }}>{ach.taskTitle}</h4>
-                        <p className="text-xs text-secondary mt-1" style={{ margin: '4px 0 0 0' }}>
+                        <h4 className="font-bold text-sm text-white">{ach.taskTitle}</h4>
+                        <p className="text-xs text-slate-400 mt-1">
                           Completed: {getJsDate(ach.completedAt).toLocaleDateString()}
                         </p>
                       </div>
-                      <span className="badge badge-credit text-xs">🌟 +{ach.credits} Cr</span>
+                      <span className="badge-credit text-xs">🌟 +{ach.credits} Cr</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div className="flex justify-between items-center mt-4 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div className="flex justify-between items-center mt-6 pt-4 border-t border-white/5">
                     <button
-                      className="btn btn-secondary py-1 px-3 text-xs"
+                      className="nav-link py-1.5 px-3 text-xs font-bold"
                       disabled={currentPage === 1}
                       onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                      style={{ cursor: 'pointer' }}
                     >
                       Previous
                     </button>
-                    <span className="text-secondary text-xs">
+                    <span className="text-slate-400 text-xs font-semibold">
                       Page {currentPage} of {totalPages}
                     </span>
                     <button
-                      className="btn btn-secondary py-1 px-3 text-xs"
+                      className="nav-link py-1.5 px-3 text-xs font-bold"
                       disabled={currentPage === totalPages}
                       onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                      style={{ cursor: 'pointer' }}
                     >
                       Next
                     </button>
