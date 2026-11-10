@@ -69,3 +69,7 @@ node_modules/
 # dataconnect generated files
 .dataconnect
 
+
+# local overrides
+.env.local
+.env.*.local
