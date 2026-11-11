@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:emu": "tsc && vite build --mode emulator",
     "preview": "vite preview",
     "emulator": "firebase emulators:start --project demo-aacal"
   },
